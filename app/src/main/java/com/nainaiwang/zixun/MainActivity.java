@@ -52,7 +52,7 @@ import java.util.List;
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener {
 
-    private TextView search, showChannels, mainRegister,myCenter;
+    private TextView search, showChannels, /*mainRegister,*/myCenter;
     private MyViewPager viewPager;
     private TabLayout tabLayout;
     private LinearLayout showChannelsLayout, left;
@@ -118,7 +118,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         viewPager = (MyViewPager) findViewById(R.id.viewpager_main_viewpager);
         tabLayout = (TabLayout) findViewById(R.id.tablayout_main_tablayout);
         showChannels = (TextView) findViewById(R.id.textview_main_showchannel);
-        mainRegister =(TextView)findViewById(R.id.textview_main_register);//初始化注册按钮控件
+       /* mainRegister =(TextView)findViewById(R.id.textview_main_register);*///初始化注册按钮控件
         showChannelsLayout = (LinearLayout) findViewById(R.id.linearlayout_main_showchannel);
         left = (LinearLayout) findViewById(R.id.linearlayout_channel);
         rl = (RelativeLayout) findViewById(R.id.relativelayout_main_rl);
@@ -126,7 +126,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         myCenter = (TextView)findViewById(R.id.myCenter);//个人中心按钮
         myCenter.setOnClickListener(this);
-        mainRegister.setOnClickListener(this);
+      /*  mainRegister.setOnClickListener(this);*/
     }
 
     private void initData() {
@@ -147,7 +147,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         search.setOnClickListener(this);
         showChannelsLayout.setOnClickListener(this);
 
-        /*sp = getSharedPreferences("nainaiwang",MODE_PRIVATE);*/
     }
 
     private void popNetDialog() {
@@ -271,12 +270,12 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                         MyCenterActivity.class);
                 startActivity(checkLogegister);/*跳转到个人中心*/
                 break;
-            case R.id.textview_main_register:
+            /*case R.id.textview_main_register:
                 Intent mainToRegister = new Intent(MainActivity.this,
                         LoginActivity.class);
                 startActivity(mainToRegister);// 跳转到注册页面
                 // finish();// 退出当前页面
-                break;
+                break;*/
 
             case R.id.textview_main_search:
                 Intent mainToSearch = new Intent(MainActivity.this, SearchActivity.class);
