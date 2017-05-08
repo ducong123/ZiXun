@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none"
+    tools:context="com.nainaiwang.zixun.DetailsActivity">
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+
+        <RelativeLayout
+            android:id="@+id/relativelayout_edit_top"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@android:color/white" >
+
+            <RelativeLayout
+                android:id="@+id/relativelayout_edit_back"
+                android:layout_width="38dp"
+                android:layout_height="match_parent" >
+
+                <TextView
+                    android:layout_width="8dp"
+                    android:layout_height="15dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/back" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/personalcenter"
+                android:textSize="17sp" />
+        </RelativeLayout>
+
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/relativelayout_edit_top"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+
+            <RelativeLayout
+                android:id="@+id/relativelayout_myshancheng_myorder"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@android:color/white" >
+
+                <TextView
+                    android:id="@+id/textview_myshancheng_orderpic"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="23dp"
+                    android:background="@drawable/history" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@id/textview_myshancheng_orderpic"
+                    android:text="@string/history"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="8dp"
+                    android:layout_height="15dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/torightgray" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relativelayout_myshancheng_myguanzhu"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@android:color/white" >
+
+                <TextView
+                    android:id="@+id/textview_myshancheng_guanzhupic"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="23dp"
+                    android:background="@drawable/guanzhu" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@id/textview_myshancheng_guanzhupic"
+                    android:text="@string/wodeguanzhu"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="8dp"
+                    android:layout_height="15dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/torightgray" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relativelayout_myshancheng_myjifen"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="0.5dp"
+                android:background="@android:color/white" >
+
+                <TextView
+                    android:id="@+id/textview_myshancheng_jifenpic"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="23dp"
+                    android:background="@drawable/accountsafe" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@id/textview_myshancheng_jifenpic"
+                    android:text="@string/accountsafe"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="8dp"
+                    android:layout_height="15dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/torightgray" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relativelayout_myshancheng_address"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="0.5dp"
+                android:background="@android:color/white" >
+
+                <TextView
+                    android:id="@+id/textview_myshancheng_addresspic"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="23dp"
+                    android:background="@drawable/about" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@id/textview_myshancheng_addresspic"
+                    android:text="@string/about"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="8dp"
+                    android:layout_height="15dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/torightgray" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relativelayout_myshancheng_suggest"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="1dp"
+                android:background="@android:color/white" >
+
+                <TextView
+                    android:id="@+id/textview_myshancheng_suggestpic"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="23dp"
+                    android:background="@drawable/clean" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@id/textview_myshancheng_suggestpic"
+                    android:text="@string/cleandata"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="8dp"
+                    android:layout_height="15dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/torightgray" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relativelayout_myshancheng_help"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="1dp"
+                android:background="@android:color/white" >
+
+                <TextView
+                    android:id="@+id/textview_myshancheng_helppic"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="23dp"
+                    android:background="@drawable/version" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@id/textview_myshancheng_helppic"
+                    android:text="@string/version"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="8dp"
+                    android:layout_height="15dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/torightgray" />
+            </RelativeLayout>
+
+
+            <TextView
+                android:id="@+id/textview_editaddress_save"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="40dp"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:text="退出登录"
+                android:textSize="16sp"
+                android:background="@android:color/white"
+                android:layout_weight="0.42" />
+
+        </LinearLayout>
+    </RelativeLayout>
+
+</ScrollView>
