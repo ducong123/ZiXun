@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/theme_color"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context="com.nainaiwang.zixun.MainActivity">
+    <TextView
+        android:id="@+id/myCenter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@mipmap/loginbackgroundpic"
+        android:gravity="center"
+        android:text="中心"
+        android:textColor="@android:color/white"
+        android:textSize="19sp" />
+
+    <RelativeLayout
+        android:id="@+id/relativelayout_main_top"
+        android:layout_width="match_parent"
+        android:layout_height="44dp">
+       <!-- 注册-->
+        <TextView
+            android:id="@+id/textview_main_register"
+            android:layout_width="40dp"
+            android:layout_height="20dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:text="@string/register"
+            android:textColor="@color/white"
+            android:textSize="17dp"/>
+
+        <TextView
+            android:layout_width="104dp"
+            android:layout_height="24dp"
+            android:layout_centerInParent="true"
+            android:background="@mipmap/logo" />
+
+        <TextView
+            android:id="@+id/textview_main_search"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/selector_search_bg" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/daohang_color">
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tablayout_main_tablayout"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginRight="31dp"
+            app:tabIndicatorColor="@color/theme_color"
+            app:tabSelectedTextColor="@color/theme_color"
+            app:tabTextColor="@color/text_color1">
+
+        </android.support.design.widget.TabLayout>
+
+        <LinearLayout
+            android:id="@+id/linearlayout_channel"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginRight="31dp"
+            android:background="@color/daohang_color"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text="所有频道"
+                android:textColor="@color/text_color1"
+                android:textSize="17sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="11dp"
+                android:text="点击选择频道"
+                android:textColor="@color/text_color2"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearlayout_main_showchannel"
+            android:layout_width="46dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="15dp"
+                android:layout_height="match_parent"
+                android:background="@mipmap/jianbian" />
+
+            <TextView
+                android:id="@+id/textview_main_showchannel"
+                android:layout_width="16dp"
+                android:layout_height="10dp"
+                android:layout_gravity="center_vertical"
+                android:background="@mipmap/xiala" />
+
+            <TextView
+                android:layout_width="15dp"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </RelativeLayout>
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/line_color">
+
+        <com.nainaiwang.widget.MyViewPager
+            android:id="@+id/viewpager_main_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </com.nainaiwang.widget.MyViewPager>
+
+        <RelativeLayout
+            android:id="@+id/relativelayout_main_rl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/daohang_color"
+            android:visibility="gone">
+
+            <GridView
+                android:id="@+id/noscrollgridview_main_channels"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:listSelector="@android:color/transparent"
+                android:numColumns="4"
+                android:columnWidth="80dp"
+                android:stretchMode="columnWidth"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:horizontalSpacing="13dp"
+                android:verticalSpacing="15dp">
+            </GridView>
+        </RelativeLayout>
+
+    </FrameLayout>
+
+
+</LinearLayout>

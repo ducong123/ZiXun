@@ -1,0 +1,204 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.nainaiwang.zixun.RegisterActivity" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <RelativeLayout
+            android:id="@+id/relativelayout_register_top"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@android:color/white" >
+
+            <RelativeLayout
+                android:id="@+id/relativelayout_register_back"
+                android:layout_width="38dp"
+                android:layout_height="match_parent" >
+
+                <TextView
+                    android:layout_width="8dp"
+                    android:layout_height="15dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:background="@mipmap/back" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/register"
+                android:textSize="17sp" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/linearlayout_register_center"
+            android:layout_width="match_parent"
+            android:layout_height="149dp"
+            android:layout_below="@id/relativelayout_register_top"
+            android:layout_marginTop="11dp"
+            android:background="@android:color/white"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="15dp"
+                    android:text="@string/phone_number"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/edittext_register_inputphone"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="16dp"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:hint="@string/input_iphone"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="1dp"
+                android:layout_weight="1"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/edittext_register_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="15dp"
+                    android:text="@string/username"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/edittext_register_inputUsername"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="16dp"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:hint="@string/input_username"
+                    android:textSize="15sp" />
+
+               <!-- <RelativeLayout
+                    android:id="@+id/relativelayout_register_getverification"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent" >
+
+                    <TextView
+                        android:id="@+id/textview_register_getverificationtv"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="15dp"
+                        android:background="@mipmap/loginbackgroundpic"
+                        android:gravity="center"
+                        android:text="@string/get_verification_code"
+                        android:textColor="@android:color/white"
+                        android:textSize="14sp" />
+                </RelativeLayout>-->
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="1dp"
+                android:layout_weight="1"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="15dp"
+                    android:text="@string/password"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/edittext_register_inputpassword"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="30dp"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:hint="@string/input_password"
+                    android:inputType="textPassword"
+                    android:textSize="15sp" />
+
+                <RelativeLayout
+                    android:id="@+id/relativelayout_register_seepassword"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="15dp" >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:layout_centerInParent="true"
+                        android:layout_marginRight="15dp"
+                        android:background="@mipmap/seepassword"
+                        android:textColor="@android:color/white"
+                        android:textSize="14sp" />
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/relativelayout_register_agressment"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@id/linearlayout_register_center" >
+
+           <!-- <CheckBox
+                android:id="@+id/checkbox_register_agressment"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:button="@drawable/selector_agressment"
+                android:checked="true"
+                android:text="@string/i_agree"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/textview_register_agressment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/checkbox_register_agressment"
+                android:text="@string/agreement"
+                android:textColor="@color/themecolor"
+                android:textSize="14sp" />-->
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/textview_register_register"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@id/relativelayout_register_agressment"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="10dp"
+            android:background="@mipmap/loginbackgroundpic"
+            android:gravity="center"
+            android:text="@string/register"
+            android:textColor="@android:color/white"
+            android:textSize="19sp" />
+    </RelativeLayout>
+
+</ScrollView>

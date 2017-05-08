@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    android:descendantFocusability="blocksDescendants"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textview_itemchanneltwo_content"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:textColor="@color/text_color1"
+        android:gravity="center_vertical"
+        android:textSize="17sp"
+        android:layout_marginLeft="15dp"
+        android:maxLines="2"
+        android:ellipsize="end"/>
+    <com.nainaiwang.widget.NoScrollGridView
+        android:id="@+id/noscrollgridview_itemchanneltwo_gridview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:listSelector="@android:color/transparent"
+        android:numColumns="3"
+        android:columnWidth="112dp"
+        android:stretchMode="columnWidth"
+        android:horizontalSpacing="10dp"
+        android:verticalSpacing="10dp">
+    </com.nainaiwang.widget.NoScrollGridView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/textview_itemchanneltwo_zixun"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="15dp"
+            android:textColor="@color/text_color2"/>
+        <TextView
+            android:id="@+id/textview_itemchanneltwo_ad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#2e70e9"
+            android:text="广告"
+            android:background="@drawable/shape_adbackground"
+            android:padding="3dp"
+            android:textSize="12sp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="15dp"/>
+        <TextView
+            android:id="@+id/textview_itemchanneltwo_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="15dp"
+            android:textColor="@color/text_color2"/>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">耐耐资讯</string>
+    <string name="register">注册</string> <!--头部名称-->
+    <string name="login">登录</string>
+    <string name="username">用户名</string>
+    <string name="input_username">请输入用户名</string>
+    <string name="phone_number">手机号</string>
+    <string name="input_iphone">请输入手机号</string>
+    <string name="password">密码</string>
+    <string name="input_password">请输入密码</string>
+    <string name="i_agree">我已阅读并同意</string>
+    <string name="agreement">《用户注册协议》</string>
+    <string name="verification">验证码</string>
+    <string name="input_verification_code">输入手机验证码</string>
+    <string name="get_verification_code">获取验证码</string>
+    <string name="ok">确定</string>
+    <string name="account">用户名</string>
+    <string name="input_account">请输入用户名或手机号</string>
+    <string name="free_retiger">免费注册</string>
+    <string name="forget_password">忘记密码</string>
+</resources>
