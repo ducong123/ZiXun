@@ -18,6 +18,7 @@
     <string name="input_account">请输入用户名或手机号</string>
     <string name="free_retiger">免费注册</string>
     <string name="forget_password">忘记密码</string>
+
     <string name="personalcenter">个人中心</string>
     <string name="wodedingdan">我的订单</string>
     <string name="history">浏览历史</string>
@@ -30,4 +31,13 @@
     <string name="cleandata">清理缓存</string>
     <string name="help">帮助中心</string>
     <string name="version">版本检测</string>
+    <string name="restPass">修改密码</string>
+    <string name="modify">保存</string>
+
+    <string name="old_pass">原密码</string>
+    <string name="new_pass">新密码</string>
+    <string name="again_pass">确认密码</string>
+    <string name="input_old_pass">请输入原密码</string>
+    <string name="input_new_pass">请输入新密码</string>
+    <string name="input_again_pass">请再次输入密码</string>
 </resources>
