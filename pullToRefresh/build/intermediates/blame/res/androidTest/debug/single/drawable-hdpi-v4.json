@@ -24,8 +24,20 @@
         "source": "D:\\Program Files\\Android\\androidwork\\ZiXun\\pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\service_icon_refresh_dropdown.png"
     },
     {
+        "merged": "G:\\workspace\\newZixun\\pullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\default_ptr_rotate.png",
+        "source": "G:\\workspace\\newZixun\\pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\default_ptr_rotate.png"
+    },
+    {
+        "merged": "G:\\workspace\\newZixun\\pullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\service_icon_refresh_loading.png",
+        "source": "G:\\workspace\\newZixun\\pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\service_icon_refresh_loading.png"
+    },
+    {
         "merged": "D:\\Program Files\\Android\\androidwork\\ZiXun\\pullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\default_ptr_rotate.png",
         "source": "D:\\Program Files\\Android\\androidwork\\ZiXun\\pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\default_ptr_rotate.png"
+    },
+    {
+        "merged": "G:\\workspace\\newZixun\\pullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\indicator_arrow.png",
+        "source": "G:\\workspace\\newZixun\\pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\indicator_arrow.png"
     },
     {
         "merged": "D:\\platform\\ZiXun\\pullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\indicator_arrow.png",
@@ -34,6 +46,18 @@
     {
         "merged": "D:\\platform\\ZiXun\\pullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\service_icon_refresh_dropdown.png",
         "source": "D:\\platform\\ZiXun\\pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\service_icon_refresh_dropdown.png"
+    },
+    {
+        "merged": "G:\\workspace\\newZixun\\pullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\reversearrow.png",
+        "source": "G:\\workspace\\newZixun\\pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\reversearrow.png"
+    },
+    {
+        "merged": "G:\\workspace\\newZixun\\pullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\default_ptr_flip.png",
+        "source": "G:\\workspace\\newZixun\\pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\default_ptr_flip.png"
+    },
+    {
+        "merged": "G:\\workspace\\newZixun\\pullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\service_icon_refresh_dropdown.png",
+        "source": "G:\\workspace\\newZixun\\pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\service_icon_refresh_dropdown.png"
     },
     {
         "merged": "D:\\platform\\ZiXun\\pullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\default_ptr_flip.png",
