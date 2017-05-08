@@ -72,8 +72,13 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private AlertDialog netDialog;//网络对话框
 
     private DbManager db;//数据库管理器
+    private boolean isLogin;
 
-
+    @Override
+    public  void onResume(){
+        super.onResume();
+        isLogin= true;
+    }
 
 //    private BroadcastReceiver connectionReceiver = new BroadcastReceiver() {
 //        @Override
@@ -270,13 +275,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                         MyCenterActivity.class);
                 startActivity(checkLogegister);/*跳转到个人中心*/
                 break;
-            /*case R.id.textview_main_register:
-                Intent mainToRegister = new Intent(MainActivity.this,
-                        LoginActivity.class);
-                startActivity(mainToRegister);// 跳转到注册页面
-                // finish();// 退出当前页面
-                break;*/
-
             case R.id.textview_main_search:
                 Intent mainToSearch = new Intent(MainActivity.this, SearchActivity.class);
                 startActivity(mainToSearch);

@@ -27,7 +27,7 @@ import org.xutils.x;
  */
 public class MyCenterActivity extends Activity implements OnClickListener {
 
-	private TextView checkLoginBtn;
+	private TextView exitLogBtn;
 	private Editor editor;
 	private SharedPreferences sp;
 	private ProgressDialog progressDialog;// 进度框
@@ -59,14 +59,26 @@ public class MyCenterActivity extends Activity implements OnClickListener {
 	private void initView() {
 		// TODO Auto-generated method stub
 
-		checkLoginBtn = (TextView) findViewById(R.id.checklogin);
-
-		checkLoginBtn.setOnClickListener(this);
+		exitLogBtn = (TextView) findViewById(R.id.exitLog);
+		exitLogBtn.setOnClickListener(this);
 	}
 	@Override
 	public void onClick(View v) {
 		//个人中心
-		//个人中心
+		int id = v.getId();
+		switch (id) {
+			case R.id.exitLog:  //退出登录
+				/*System.exit(0);*/
+				exitLog();
+				break;
+			case R.id.resetPassword:
+				Intent resetPasswordto= new Intent(MyCenterActivity.this,
+						LoginActivity.class);
+				startActivity(resetPasswordto);//跳转修密码界面
+				break;
+			default:
+				break;
+		}
 	}
 
 	public void  onCenter(){
@@ -96,11 +108,12 @@ public class MyCenterActivity extends Activity implements OnClickListener {
 					String log = jsonObject.getString("log");
 
 					if ("0".equals(log)) {
-						Toast.makeText(MyCenterActivity.this, "未登录",
+						Toast.makeText(MyCenterActivity.this, "未登录,请先登录",
 								Toast.LENGTH_SHORT).show();
-						Intent loginToForgetpassword = new Intent(MyCenterActivity.this,
+					/*	Thread.sleep(2000);*/
+						Intent loginTo= new Intent(MyCenterActivity.this,
 								LoginActivity.class);
-						startActivity(loginToForgetpassword);
+						startActivity(loginTo);
 
 					} /*else if("1".equals(log)) {
 						Toast.makeText(MyCenterActivity.this,
@@ -114,7 +127,51 @@ public class MyCenterActivity extends Activity implements OnClickListener {
 				}
 			}
 		});
-
 	}
 
+	/*
+	* 退出登录*/
+	public void exitLog(){
+		// TODO Auto-generated method stub
+		RequestParams exitParams = new RequestParams(UrlUtils.EXIT);
+		x.http().post(exitParams, new CommonCallback<String>() {
+			@Override
+			public void onCancelled(CancelledException arg0) {
+				// TODO Auto-generated method stub
+			}
+
+			@Override
+			public void onError(Throwable arg0, boolean arg1) {
+				// TODO Auto-generated method stub
+			}
+
+			@Override
+			public void onFinished() {
+				// TODO Auto-generated method stub
+			}
+
+			@Override
+			public void onSuccess(String arg0) {
+				// TODO Auto-generated method stub
+				try {
+					JSONObject jsonObject = new JSONObject(arg0);
+					String errorCode = jsonObject.getString("errorCode");
+					String info = jsonObject.getString("info");
+					if ("0".equals(errorCode)) {
+						Toast.makeText(MyCenterActivity.this, info,
+								Toast.LENGTH_SHORT).show();
+						finish();
+
+					} else{
+						Toast.makeText(MyCenterActivity.this,info,Toast.LENGTH_LONG);
+					}
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	/*
+	* 退出登录 end*/
 }

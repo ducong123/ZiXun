@@ -40,6 +40,11 @@ public class UrlUtils {
      */
     public static final String CHECKLOG = "http://ceshi.nainaiwang.com/user/app/checklog";
 
+    /**
+     * 判断是否退出登录
+     */
+    public static final String EXIT = "http://ceshi.nainaiwang.com/user/app/logout";
+
 
 
 }
