@@ -60,11 +60,11 @@ public class MyCenterActivity extends Activity implements OnClickListener {
 		// TODO Auto-generated method stub
         back = (RelativeLayout)findViewById(R.id.relativelayout_edit_back);
 		exitLogBtn = (TextView)findViewById(R.id.exitLog);//调用退出登录按钮
-		accountSecurityBtn = (TextView)findViewById(R.id.txtview_account_security);//跳转到账户安全界面按钮
+		//accountSecurityBtn = (TextView)findViewById(R.id.txtview_account_security);跳转到账户安全界面按钮
 
         back.setOnClickListener(this);
 		exitLogBtn.setOnClickListener(this);
-		accountSecurityBtn.setOnClickListener(this);
+		//accountSecurityBtn.setOnClickListener(this);
 	}
 	@Override
 	public void onClick(View v) {
@@ -78,11 +78,11 @@ public class MyCenterActivity extends Activity implements OnClickListener {
 				/*System.exit(0);*/
 				exitLog();
 				break;
-			case R.id.txtview_account_security:
-				Intent accountSecTO= new Intent(MyCenterActivity.this,
-						AccountSecurityActivity.class);
-				startActivity(accountSecTO);//跳转账户安全界面
-				break;
+//			case R.id.txtview_account_security:
+//				Intent accountSecTO= new Intent(MyCenterActivity.this,
+//						AccountSecurityActivity.class);
+//				startActivity(accountSecTO);//跳转账户安全界面
+//				break;
 			default:
 				break;
 		}
