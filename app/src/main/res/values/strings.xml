@@ -34,7 +34,7 @@
     <string name="restPass">修改密码</string>
     <string name="modify">保存</string>
 
-    <string name="old_pass">原密码</string>
+    <string name="old_pass">原密码：</string>
     <string name="new_pass">新密码</string>
     <string name="again_pass">确认密码</string>
     <string name="input_old_pass">请输入原密码</string>
