@@ -27,9 +27,15 @@
 
         </activity>
         <!--增加登录功能 end-->
-        <!--判断登录功能 -->
-        <activity android:name=".MyCenterActivity"/>
-        <!--增加登录功能 end-->
+        <!--个人中心功能 -->
+        <activity android:name=".MyCenterActivity"> </activity>
+        <!--个人中心功能 end-->
+        <!--账户安全功能 -->
+        <activity android:name=".AccountSecurityActivity"> </activity>
+        <!--账户安全功能 end-->
+        <!--修改密码功能 -->
+        <activity android:name=".SetPasswordActivity"> </activity>
+        <!--修改密码功能 end-->
         <activity android:name=".SearchActivity" />
 
         <meta-data

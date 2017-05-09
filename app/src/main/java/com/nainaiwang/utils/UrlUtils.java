@@ -44,6 +44,10 @@ public class UrlUtils {
      * 判断是否退出登录
      */
     public static final String EXIT = "http://ceshi.nainaiwang.com/user/app/logout";
+    /**
+     * 判断是否退出登录
+     */
+    public static final String SET_PASSWORD = "http://ceshi.nainaiwang.com/user/ucenter/chgPass";
 
 
 

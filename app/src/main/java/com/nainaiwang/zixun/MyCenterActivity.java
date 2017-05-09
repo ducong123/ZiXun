@@ -8,6 +8,7 @@ import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,15 +28,15 @@ import org.xutils.x;
  */
 public class MyCenterActivity extends Activity implements OnClickListener {
 
-	private TextView exitLogBtn;
-	private Editor editor;
-	private SharedPreferences sp;
+    private RelativeLayout back;//返回按钮
+	private TextView exitLogBtn,accountSecurityBtn;//退出登录按钮，跳转账号安全按钮
+	private SharedPreferences sp; //存储对象
 	private ProgressDialog progressDialog;// 进度框
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_mycenter);
+		setContentView(R.layout.fragment_wdsc);
 
 		initView();// 初始化控件
 		initData();// 初始化数据
@@ -47,7 +48,6 @@ public class MyCenterActivity extends Activity implements OnClickListener {
 		// TODO Auto-generated method stub
 		super.onResume();
 		sp = getSharedPreferences("nainaiwang", MODE_PRIVATE);
-		editor = sp.edit();
 		onCenter();
 	}
 
@@ -58,23 +58,30 @@ public class MyCenterActivity extends Activity implements OnClickListener {
 
 	private void initView() {
 		// TODO Auto-generated method stub
+        back = (RelativeLayout)findViewById(R.id.relativelayout_edit_back);
+		exitLogBtn = (TextView)findViewById(R.id.exitLog);//调用退出登录按钮
+		accountSecurityBtn = (TextView)findViewById(R.id.txtview_account_security);//跳转到账户安全界面按钮
 
-		exitLogBtn = (TextView) findViewById(R.id.exitLog);
+        back.setOnClickListener(this);
 		exitLogBtn.setOnClickListener(this);
+		accountSecurityBtn.setOnClickListener(this);
 	}
 	@Override
 	public void onClick(View v) {
 		//个人中心
 		int id = v.getId();
 		switch (id) {
+            case R.id.relativelayout_edit_back:
+                finish();
+                break;
 			case R.id.exitLog:  //退出登录
 				/*System.exit(0);*/
 				exitLog();
 				break;
-			case R.id.resetPassword:
-				Intent resetPasswordto= new Intent(MyCenterActivity.this,
-						LoginActivity.class);
-				startActivity(resetPasswordto);//跳转修密码界面
+			case R.id.txtview_account_security:
+				Intent accountSecTO= new Intent(MyCenterActivity.this,
+						AccountSecurityActivity.class);
+				startActivity(accountSecTO);//跳转账户安全界面
 				break;
 			default:
 				break;
