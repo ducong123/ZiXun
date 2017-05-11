@@ -15,7 +15,7 @@
             android:background="@android:color/white" >
 
             <RelativeLayout
-                android:id="@+id/relativelayout_editaddress_back"
+                android:id="@+id/relativelayout_data_back"
                 android:layout_width="38dp"
                 android:layout_height="match_parent" >
 
@@ -33,7 +33,43 @@
                 android:text="修改资料"
                 android:textSize="17sp" />
         </RelativeLayout>
+        <!--头像-->
+        <RelativeLayout
+            android:id="@+id/relativelayout_edit_portrais"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/white" >
 
+            <TextView
+                android:id="@+id/textview_edit_setusernametv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:text="头像"
+                android:textSize="15sp" />
+            <ImageView
+                android:id="@+id/imageview_edit_setImg"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="40dp"
+                android:layout_alignParentRight="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/setusername" />
+
+            <TextView
+                android:id="@+id/textview_right_icon"
+                android:layout_width="8dp"
+                android:layout_height="15dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/torightgray" />
+        </RelativeLayout>
+        <!--头像 end-->
+      <!--  用户名-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -58,10 +94,9 @@
                 android:background="@android:color/transparent"
                 android:textSize="15sp" />
         </LinearLayout>
+        <!--  用户名 end-->
 
-
-
-
+        <!--性别-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -78,7 +113,7 @@
                 android:textSize="15sp" />
 
             <EditText
-                android:id="@+id/sex_text"
+                android:id="@+id/edit_sex"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -86,12 +121,16 @@
                 android:background="@android:color/transparent"
                 android:textSize="15sp" />
         </LinearLayout>
+        <!--性别 end-->
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:gravity="center"
-            android:orientation="vertical">
+        <!--出生日期-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="1dp"
+            android:background="@android:color/white"
+            android:orientation="horizontal" >
+
 
             <TextView
                 android:id="@+id/dateDisplay"
@@ -101,25 +140,29 @@
                 android:layout_marginLeft="15dp"
                 android:text="出生日期："/>
 
-            <Button
-                android:id="@+id/dateChoose"
+            <EditText
+                android:id="@+id/edit_date_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="15dp"
-                android:text="选择日期" />
+                android:background="@android:color/transparent"
+                android:textSize="15sp" />
         </LinearLayout>
+        <!--出生日期 end-->
 
+       <!-- 个人介绍-->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="100dp"
             android:layout_marginTop="1dp"
             android:background="@android:color/white"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            android:weightSum="1">
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="80dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="15dp"
                 android:text="个人介绍："
@@ -128,15 +171,18 @@
             <EditText
                 android:id="@+id/intro_text"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="80dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="15dp"
                 android:background="@android:color/transparent"
-                android:textSize="15sp" />
+                android:textSize="13sp"
+                android:hint="用几句话介绍自己吧"
+                android:gravity="top"
+                android:layout_weight="0.90" />
         </LinearLayout>
 
         <TextView
-            android:id="@+id/textview_editaddress_save"
+            android:id="@+id/textview_data_save"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginLeft="15dp"
@@ -144,7 +190,7 @@
             android:layout_marginTop="40dp"
             android:background="@drawable/loginbackgroundpic"
             android:gravity="center"
-            android:text="保存"
+            android:text="@string/modify"
             android:textColor="@android:color/white"
             android:textSize="16sp" />
     </LinearLayout>

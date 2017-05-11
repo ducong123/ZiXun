@@ -44,7 +44,7 @@
 
 
             <RelativeLayout
-                android:id="@+id/relativelayout_edit_setusername"
+                android:id="@+id/relativelayout_edit_setdata"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="1dp"

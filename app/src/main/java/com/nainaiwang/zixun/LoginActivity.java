@@ -105,7 +105,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 				break;
 			case R.id.textview_login_freeresiger:
 				Intent regToRegister = new Intent(LoginActivity.this,
-						MainActivity.class);
+						RegisterActivity.class);
 				startActivity(regToRegister);// 跳转到注册页面
 				finish();// 退出当前页面
 				break;

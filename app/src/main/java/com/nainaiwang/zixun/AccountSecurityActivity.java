@@ -20,8 +20,8 @@ import android.widget.TextView;
  */
 public class AccountSecurityActivity extends Activity implements OnClickListener {
 
-    private RelativeLayout back;//返回按钮
-	private TextView setpasswordtvBut,setusernametvBut;//修改密码按钮,修改资料按钮
+    private RelativeLayout back ,setpasswordtvBut,setusernametvBut;//返回按钮,修改密码按钮,修改资料按钮
+	/*private TextView ,;*/
 	private SharedPreferences sp;//存储数据
 	private ProgressDialog progressDialog;// 进度框
 	@Override
@@ -51,10 +51,12 @@ public class AccountSecurityActivity extends Activity implements OnClickListener
 	private void initView() {
 		// TODO Auto-generated method stub
         back = (RelativeLayout)findViewById(R.id.relativelayout_edit_back);
-		setpasswordtvBut = (TextView)findViewById(R.id.textview_edit_setpasswordtv);//调用退出登录按钮
+		setpasswordtvBut = (RelativeLayout)findViewById(R.id.relativelayout_edit_setpassword);
+		setusernametvBut = (RelativeLayout)findViewById(R.id.relativelayout_edit_setdata);
 
         back.setOnClickListener(this);
 		setpasswordtvBut.setOnClickListener(this);
+		setusernametvBut.setOnClickListener(this);
 
 	}
 	@Override
@@ -65,10 +67,15 @@ public class AccountSecurityActivity extends Activity implements OnClickListener
             case R.id.relativelayout_edit_back:
                 finish();
                 break;
-			case R.id.textview_edit_setpasswordtv:  //退出登录
+			case R.id.relativelayout_edit_setpassword:
 				Intent setPassTo= new Intent(AccountSecurityActivity.this,
 						SetPasswordActivity.class);
-				startActivity(setPassTo);//跳转账户安全界面
+				startActivity(setPassTo);//跳转修改密码界面
+				break;
+			case R.id.relativelayout_edit_setdata:
+				Intent setDataATo= new Intent(AccountSecurityActivity.this,
+						SetDataActivity.class);
+				startActivity(setDataATo);//跳转修改资料界面
 				break;
 
 			default:

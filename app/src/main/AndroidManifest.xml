@@ -36,6 +36,9 @@
         <!--修改密码功能 -->
         <activity android:name=".SetPasswordActivity"> </activity>
         <!--修改密码功能 end-->
+        <!--修改资料功能 -->
+        <activity android:name=".SetDataActivity"> </activity>
+        <!--修改资料功能 end-->
         <activity android:name=".SearchActivity" />
 
         <meta-data

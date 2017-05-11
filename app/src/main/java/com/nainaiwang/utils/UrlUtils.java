@@ -41,13 +41,22 @@ public class UrlUtils {
     public static final String CHECKLOG = "http://ceshi.nainaiwang.com/user/app/checklog";
 
     /**
-     * 判断是否退出登录
+     * 退出登录接口
      */
     public static final String EXIT = "http://ceshi.nainaiwang.com/user/app/logout";
     /**
-     * 判断是否退出登录
+     * 修改密码接口
      */
     public static final String SET_PASSWORD = "http://ceshi.nainaiwang.com/user/ucenter/chgPass";
+    /**
+     * 资料修改接口
+     */
+    public static final String SET_DATA = "http://ceshi.nainaiwang.com/user/ucenterapp/editInfo";
+    /**
+     * 上传图片接口
+     */
+    public static final String UPLOAD_IMG = "http://ceshi.nainaiwang.com/user/ucenter/upload";
+
 
 
 
