@@ -43,32 +43,7 @@
             android:layout_marginTop="11dp"
             android:background="@android:color/white"
             android:orientation="vertical" >
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:orientation="horizontal" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="15dp"
-                    android:text="@string/phone_number"
-                    android:textSize="15sp" />
-
-                <EditText
-                    android:id="@+id/edittext_register_inputphone"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="16dp"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:hint="@string/input_iphone"
-                    android:textSize="15sp" />
-            </LinearLayout>
-
+          <!--  用户名-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -95,7 +70,78 @@
                     android:hint="@string/input_username"
                     android:textSize="15sp" />
 
-               <!-- <RelativeLayout
+                <!-- <RelativeLayout
+                     android:id="@+id/relativelayout_register_getverification"
+                     android:layout_width="100dp"
+                     android:layout_height="match_parent" >
+
+                     <TextView
+                         android:id="@+id/textview_register_getverificationtv"
+                         android:layout_width="match_parent"
+                         android:layout_height="30dp"
+                         android:layout_centerVertical="true"
+                         android:layout_marginRight="15dp"
+                         android:background="@mipmap/loginbackgroundpic"
+                         android:gravity="center"
+                         android:text="@string/get_verification_code"
+                         android:textColor="@android:color/white"
+                         android:textSize="14sp" />
+                 </RelativeLayout>-->
+            </LinearLayout>
+            <!--用户名end-->
+            <!--手机号-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="15dp"
+                    android:text="@string/phone_number"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/edittext_register_inputphone"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="16dp"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:hint="@string/input_iphone"
+                    android:textSize="15sp" />
+            </LinearLayout>
+            <!--手机号 end-->
+            <!--验证码-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="1dp"
+                android:layout_weight="1"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="15dp"
+                    android:text="@string/verification"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/edittext_register_verification"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="16dp"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:hint="@string/input_verification_code"
+                    android:textSize="15sp" />
+
+                <RelativeLayout
                     android:id="@+id/relativelayout_register_getverification"
                     android:layout_width="100dp"
                     android:layout_height="match_parent" >
@@ -106,14 +152,14 @@
                         android:layout_height="30dp"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="15dp"
-                        android:background="@mipmap/loginbackgroundpic"
+                        android:background="@drawable/getverification"
                         android:gravity="center"
                         android:text="@string/get_verification_code"
                         android:textColor="@android:color/white"
                         android:textSize="14sp" />
-                </RelativeLayout>-->
+                </RelativeLayout>
             </LinearLayout>
-
+            <!--验证码 end-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -156,6 +202,32 @@
                         android:textSize="14sp" />
                 </RelativeLayout>
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="1dp"
+                android:layout_weight="1"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="15dp"
+                    android:text="@string/again_pass"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/edittext_register_inputrepassword"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="30dp"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:hint="@string/input_again_pass"
+                    android:inputType="textPassword"
+                    android:textSize="15sp" />
+            </LinearLayout>
         </LinearLayout>
 
         <RelativeLayout
@@ -164,7 +236,7 @@
             android:layout_height="50dp"
             android:layout_below="@id/linearlayout_register_center" >
 
-           <!-- <CheckBox
+            <CheckBox
                 android:id="@+id/checkbox_register_agressment"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
@@ -183,7 +255,7 @@
                 android:layout_toRightOf="@id/checkbox_register_agressment"
                 android:text="@string/agreement"
                 android:textColor="@color/themecolor"
-                android:textSize="14sp" />-->
+                android:textSize="14sp" />
         </RelativeLayout>
 
         <TextView

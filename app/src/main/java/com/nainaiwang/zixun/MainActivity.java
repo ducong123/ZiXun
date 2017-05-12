@@ -272,7 +272,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         switch (id) {
             case R.id.myCenter:
               Intent checkLogegister = new Intent(MainActivity.this,
-                        MyCenterActivity.class);
+                        RegisterActivity.class);
                 startActivity(checkLogegister);/*跳转到个人中心*/
                 break;
             case R.id.textview_main_search:

@@ -99,6 +99,14 @@ public class SetDataActivity extends Activity implements OnClickListener {
 		intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
 		registerReceiver(receiver, intentFilter);
 
+		/*Intent getIntent = getIntent();
+		String nick = getIntent.getStringExtra("nick");
+		String  brith = getIntent.getStringExtra("brith");
+		String sign = getIntent.getStringExtra("sign");
+		inputUserName.setText(nick);
+		inputdate.setText(brith);
+		inputIntro.setText(sign);*/
+
 	}
 	private void initView() {
 		// TODO Auto-generated method stub
@@ -229,11 +237,13 @@ public  void selectDate(){
 		progressDialog.setMessage("正在加载，请稍候...");
 		progressDialog.show();//显示加载动画
 		RequestParams saveParams = new RequestParams(UrlUtils.SET_DATA);//调用修改资料接口
+		/*File head =new File(Environment.getExternalStorageDirectory().getPath(),"setusername.png");*/
 		saveParams.addBodyParameter("token",token);
 		saveParams.addBodyParameter("nick",str1);
 		saveParams.addBodyParameter("birth",str2);
 		saveParams.addBodyParameter("sign",str3);
-
+		/*saveParams.addBodyParameter("head",head);
+*/
 		x.http().post(saveParams, new Callback.CommonCallback<String>() {
 
 			@Override
@@ -267,13 +277,12 @@ public  void selectDate(){
 					if ("1".equals(success)) {
 						progressDialog.dismiss();
 						System.out.println("成功");
-						Toast.makeText(SetDataActivity.this, info,
+						Toast.makeText(SetDataActivity.this, "成功修改",
 								Toast.LENGTH_SHORT).show();
 						edit.putString("token", token);
 						edit.putString("nick", str1);
 						edit.putString("brith", str2);
 						edit.putString("sign", str3);
-						/*editor.putString("sign", str4);*/
 						edit.commit();
 						finish();
 					} else if("0".equals(success)){
@@ -409,11 +418,14 @@ public  void selectDate(){
 					photo.compress(Bitmap.CompressFormat.JPEG, 50, fos);
 					fos.flush();
 					fos.close();
+					String content_type = "multipart/form-data";//内容类型
 					System.out.println("图片已经保存到本地了");
 					RequestParams uploadParams = new RequestParams(
 							UrlUtils.UPLOAD_IMG);//上传头像接口
+					//File img = new File(path);
+                    uploadParams.setMultipart(true);
 					uploadParams.addBodyParameter("token", token);
-					uploadParams.addBodyParameter("img", String.valueOf(data));
+					uploadParams.addBodyParameter("img",imageFile,content_type);//设置上传图片表单编制为multipart/form-data
 					x.http().post(uploadParams, new Callback.CommonCallback<String>() {
 						@Override
 						public void onCancelled(CancelledException arg0) {

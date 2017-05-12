@@ -27,7 +27,11 @@ public class UrlUtils {
     /**
      * 注册接口
      */
-    public static final String Reg = "http://124.166.246.120:7000/nzw/test/index";
+    public static final String Reg = "http://124.166.246.120:8000/nn2/user/login/doreg";
+    /**
+     * 短信验证码接口
+     */
+    public static final String GET_VERIFICATION_CODE ="http://124.166.246.120:8000/nn2/user/login/sendMessage";
 
     /**
      * 登录接口
