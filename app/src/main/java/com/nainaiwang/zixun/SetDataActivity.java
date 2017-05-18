@@ -4,13 +4,13 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Build;
@@ -48,6 +48,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 
+
 /**
  *
  * @author John
@@ -58,8 +59,8 @@ public class SetDataActivity extends Activity implements OnClickListener {
 
 	private RelativeLayout back,setPortrais,setSex;//返回按钮,设置头像，设置性别
     private LinearLayout setdate;
-	private EditText inputUserName,inputIntro,inputSex,inputdate;//设置用户名，个人介绍
-	private TextView dataSave;//保存按钮
+	private EditText inputUserName,inputIntro,inputSex;//设置用户名，个人介绍
+	private TextView dataSave,inputdate;//保存按钮
 	private SharedPreferences.Editor edit;
 	private ImageView iv_img;
 
@@ -86,7 +87,8 @@ public class SetDataActivity extends Activity implements OnClickListener {
 		initData();
 	}
 
-	private void initData() {
+	@RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+    private void initData() {
 		// TODO Auto-generated method stub
 		sp = getSharedPreferences("nainaiwang", MODE_PRIVATE);
 		edit = sp.edit();
@@ -99,14 +101,17 @@ public class SetDataActivity extends Activity implements OnClickListener {
 		intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
 		registerReceiver(receiver, intentFilter);
 
-		/*Intent getIntent = getIntent();
-		String nick = getIntent.getStringExtra("nick");
-		String  brith = getIntent.getStringExtra("brith");
-		String sign = getIntent.getStringExtra("sign");
+		//Intent getIntent = getIntent();
+		String nick = sp.getString("nick","null");
+		String  brith = sp.getString("brith","null");
+		String sign = sp.getString("sign","null");
+		String img = sp.getString("head","null");
+		System.out.println("t图片地址="+img+"nick"+nick);
+
 		inputUserName.setText(nick);
 		inputdate.setText(brith);
-		inputIntro.setText(sign);*/
-
+		inputIntro.setText(sign);
+	    iv_img.setImageURI(Uri.parse(img));
 	}
 	private void initView() {
 		// TODO Auto-generated method stub
@@ -115,7 +120,7 @@ public class SetDataActivity extends Activity implements OnClickListener {
 		inputUserName = (EditText)findViewById(R.id.edit_name) ;//用户名
 		inputIntro = (EditText)findViewById(R.id.intro_text);//个人介绍
 		/*inputSex =(EditText)findViewById(R.id.edit_sex);//获取性别*/
-		inputdate =(EditText)findViewById(R.id.edit_date_time);//获取日期
+		inputdate =(TextView)findViewById(R.id.edit_date_time);//获取日期
 		dataSave = (TextView)findViewById(R.id.textview_data_save);//保存
 		iv_img = (ImageView)findViewById(R.id.imageview_edit_setImg);//图片
 
@@ -149,6 +154,7 @@ public class SetDataActivity extends Activity implements OnClickListener {
                 builder.setView(view);// 加上自定义布局
                 dialog = builder.create();
                 dialog.show();// 显示dialog
+
                 break;
             // 点击拍照上传头像
             case R.id.textview_dialog_edit_takephoto:
@@ -159,6 +165,7 @@ public class SetDataActivity extends Activity implements OnClickListener {
             case R.id.textview_dialog_edit_selectphoto:
                 dialog.dismiss();
                 selectPhotoInAlbum();// 从相册中选取图片上传
+
                 break;
             case R.id.edit_date_time://点击设置日期
 				selectDate();
@@ -170,8 +177,9 @@ public class SetDataActivity extends Activity implements OnClickListener {
 				String nick = inputUserName.getText().toString().trim();
 				String sign = inputIntro.getText().toString().trim();
 				String brith = inputdate.getText().toString().trim();
+                String head = getImageUri().toString();
 
-				if (TextUtils.isEmpty(nick)) {
+                if (TextUtils.isEmpty(nick)) {
 					Toast.makeText(SetDataActivity.this, "用户名不能为空",
 							Toast.LENGTH_SHORT).show();
 				}else if(sign.length()>=30){
@@ -180,7 +188,7 @@ public class SetDataActivity extends Activity implements OnClickListener {
 				} else {
 					isNet = receiver.judgeNetIsConnected(SetDataActivity.this);
 					if(isNet){
-						saveDate(nick,brith,sign);
+						saveDate(nick,brith,sign,head);
 					} else {
 						Toast.makeText(SetDataActivity.this, "当前没有网络",
 								Toast.LENGTH_SHORT).show();
@@ -192,6 +200,8 @@ public class SetDataActivity extends Activity implements OnClickListener {
 				break;
 		}
 	}
+
+
 	/*日期选择*/
 
 public  void selectDate(){
@@ -230,7 +240,7 @@ public  void selectDate(){
 /*	性别选择框 end*/
 
 	//保存个人资料
-	private void saveDate(final String str1, final String str2,final String str3){
+	private void saveDate(final String str1, final String str2, final String str3,final String str4){
 		System.out.println("token="+ token + ",str1=" +str1+",str2="+str2);//打印值
 
 		progressDialog = new ProgressDialog(SetDataActivity.this);
@@ -238,12 +248,13 @@ public  void selectDate(){
 		progressDialog.show();//显示加载动画
 		RequestParams saveParams = new RequestParams(UrlUtils.SET_DATA);//调用修改资料接口
 		/*File head =new File(Environment.getExternalStorageDirectory().getPath(),"setusername.png");*/
+		//final String str4 = null;
 		saveParams.addBodyParameter("token",token);
 		saveParams.addBodyParameter("nick",str1);
 		saveParams.addBodyParameter("birth",str2);
 		saveParams.addBodyParameter("sign",str3);
-		/*saveParams.addBodyParameter("head",head);
-*/
+		saveParams.addBodyParameter("head",str4);
+
 		x.http().post(saveParams, new Callback.CommonCallback<String>() {
 
 			@Override
@@ -283,6 +294,7 @@ public  void selectDate(){
 						edit.putString("nick", str1);
 						edit.putString("brith", str2);
 						edit.putString("sign", str3);
+						edit.putString("head", str4);
 						edit.commit();
 						finish();
 					} else if("0".equals(success)){
@@ -323,8 +335,8 @@ public  void selectDate(){
 	 */
 	private void selectPhotoInAlbum() {
 		// TODO Auto-generated method stub
-		Intent editToAlbum = new Intent(Intent.ACTION_GET_CONTENT);// 隐式跳转
-		editToAlbum.addCategory(Intent.CATEGORY_OPENABLE);// 添加分类
+		Intent editToAlbum = new Intent(Intent.ACTION_PICK);// 隐式跳转
+		//editToAlbum.addCategory(Intent.CATEGORY_OPENABLE);// 添加分类
 		editToAlbum.setType("image/*");// 设置类型为图片
 		startActivityForResult(editToAlbum, IMAGE_REQUEST_CODE);// 跳转Activity并且返回图片结果码
 	}
@@ -341,6 +353,7 @@ public  void selectDate(){
 
 				case IMAGE_REQUEST_CODE:
 					resizeImage(data.getData());// 对从图库返回回来的图片进行裁剪,data.getData()方法获得的是图片的uri，也就是路径
+                    System.out.println("data图"+data.getData());
 					break;
 				case CAMERA_REQUEST_CODE:
 					if (isSdcardExisting()) {
@@ -353,8 +366,13 @@ public  void selectDate(){
 				// 如果返回的是裁剪码，当data不为空的时候，对data进行操作
 				case RESIZE_REQUEST_CODE:
 					if (data != null) {
+                      /*  String img = getImageUri().toString();
+                        iv_img.setImageURI(Uri.parse(img));*/
+                        Bitmap bitmap = data.getParcelableExtra("data");
+                        this.iv_img.setImageBitmap(bitmap);
 						uploadAndSaveImage(data);// 上传并且保存图片
-						iv_img.setImageURI(getImageUri());
+
+                        System.out.println("ll图"+bitmap);
 					}
 					break;
 
@@ -454,16 +472,14 @@ public  void selectDate(){
 								JSONObject jsonObject = new JSONObject(arg0);
 								String flag = jsonObject.getString("flag");
 								String error = jsonObject.getString("error");
+                                String img = jsonObject.getString("img");
 								if ("1".equals(flag)) {
-									Toast.makeText(SetDataActivity.this, error,
+									Toast.makeText(SetDataActivity.this, "上传成功",
 											Toast.LENGTH_SHORT).show();
+                                    edit.putString("token", token);
 									edit.putString(
 											"img",
-											Environment
-													.getExternalStorageDirectory()
-													.getPath()
-													+ File.separator
-													+ "setusername.png");// 头像保存的本地地址
+										img);// 头像保存的本地地址
 								/*	edit.putString("thumb", thumb);// 图片保存的网络地址
 									edit.putString("img", img);*/
 									edit.commit();

@@ -46,7 +46,7 @@
           <!--  用户名-->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="30dp"
                 android:layout_marginTop="1dp"
                 android:layout_weight="1"
                 android:orientation="horizontal" >
@@ -92,7 +92,7 @@
             <!--手机号-->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="30dp"
                 android:layout_weight="1"
                 android:orientation="horizontal" >
 
@@ -115,10 +115,53 @@
                     android:textSize="15sp" />
             </LinearLayout>
             <!--手机号 end-->
+            <!--图形验证码-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="3dp"
+                android:layout_weight="1"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="15dp"
+                    android:text="图形验证"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/edittext_img_code"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="16dp"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:hint="请输入验证码"
+                    android:textSize="15sp" />
+                <RelativeLayout
+                    android:id="@+id/relativeLayout_img_code"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent" >
+
+                    <ImageView
+                        android:id="@+id/imageview_edit_imgCode"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_centerVertical="true"
+                        android:scaleType="fitCenter"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true" />
+                </RelativeLayout>
+
+
+            </LinearLayout>
+           <!-- 图形验证码end-->
             <!--验证码-->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="30dp"
                 android:layout_marginTop="1dp"
                 android:layout_weight="1"
                 android:orientation="horizontal" >
@@ -162,7 +205,7 @@
             <!--验证码 end-->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="30dp"
                 android:layout_marginTop="1dp"
                 android:layout_weight="1"
                 android:orientation="horizontal" >
@@ -204,7 +247,7 @@
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="30dp"
                 android:layout_marginTop="1dp"
                 android:layout_weight="1"
                 android:orientation="horizontal" >

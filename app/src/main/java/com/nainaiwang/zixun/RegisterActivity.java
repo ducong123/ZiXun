@@ -1,16 +1,4 @@
-package com.nainaiwang.zixun;;
-
-import junit.framework.Test;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.xutils.x;
-import org.xutils.common.Callback.CommonCallback;
-import org.xutils.http.RequestParams;
-
-import com.nainaiwang.myreceiver.JudgeNetIsConnectedReceiver;
-import com.nainaiwang.utils.UrlUtils;
-import com.nainaiwang.utils.Validator;
+package com.nainaiwang.zixun;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -29,23 +17,36 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nainaiwang.myreceiver.JudgeNetIsConnectedReceiver;
+import com.nainaiwang.utils.CanvasImageTask;
+import com.nainaiwang.utils.UrlUtils;
+import com.nainaiwang.utils.Validator;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.xutils.common.Callback.CommonCallback;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
+
 public class RegisterActivity extends Activity implements OnClickListener {
 
-    private TextView agreement, registerBtn, getVerifivationCodeTv;// 《用户注册协议》，注册,获取验证码里面的字
-    private CheckBox iAgree;//是否有条款
+    private TextView agreement, registerBtn, getVerificationCodeTv;// 《用户注册协议》，注册,获取验证码里面的字
+    private CheckBox iAgree;// 是否同意条款
     private RelativeLayout back, getVerificationCode, seePassword;// 返回，获取验证码，可视密码
-    private EditText inputPhoneNum,inputVerification, inputUserName, inputPassword,inputAginPassword;// 输入手机号，输入验证码，输入密码,确认密码
+    private EditText inputPhoneNum, inputVerification, inputPassword,inputUsername,rePassword,inputImgVer;// 输入手机号，输入验证码，输入密码
+    private ImageView imgcode;
 
     private boolean isSeePassword = false;// 点击眼睛，是否显示密码,默认不显示
-    private boolean isAgreeAgreement=true;
+    private boolean isAgreeAgreement = true;
     private boolean isNet;// 是否有网络
 
     private Handler handler = new Handler();
-    private int reclen = 60;//倒计时60秒
+    private int reclen = 60;// 倒计时60秒
 
     private SharedPreferences sp;
     private Editor editor;
@@ -53,6 +54,7 @@ public class RegisterActivity extends Activity implements OnClickListener {
     private ProgressDialog progressDialog;// 进度框
     private JudgeNetIsConnectedReceiver receiver;// 广播接受者
 
+    private String path="http://ceshi.nainaiwang.com/user/login/captcha";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,33 +71,40 @@ public class RegisterActivity extends Activity implements OnClickListener {
         super.onResume();
         sp = getSharedPreferences("nainaiwang", MODE_PRIVATE);
         editor = sp.edit();
+        /*getimgcode();*/
+        imgcode.setTag(path);
+        new CanvasImageTask().execute(imgcode);
     }
+
+
 
     /**
      * 初始化控件
      */
     private void initView() {
         // TODO Auto-generated method stub
-        back = (RelativeLayout) findViewById(R.id.relativelayout_register_back);//返回控件
-        seePassword = (RelativeLayout) findViewById(R.id.relativelayout_register_seepassword);//查看密码控件
-        getVerificationCode = (RelativeLayout)findViewById(R.id.relativelayout_register_getverification);//验证码
-        //agreement = (TextView)findViewById(R.id.textview_register_agressment);//用户注册协议
-        registerBtn = (TextView) findViewById(R.id.textview_register_register);//注册按钮
-        getVerifivationCodeTv = (TextView)findViewById(R.id.textview_register_getverificationtv);//验证码按钮内文字
+        back = (RelativeLayout) findViewById(R.id.relativelayout_register_back);
+        seePassword = (RelativeLayout) findViewById(R.id.relativelayout_register_seepassword);
+        getVerificationCode = (RelativeLayout) findViewById(R.id.relativelayout_register_getverification);
+        agreement = (TextView) findViewById(R.id.textview_register_agressment);
+        registerBtn = (TextView) findViewById(R.id.textview_register_register);
+        getVerificationCodeTv = (TextView) findViewById(R.id.textview_register_getverificationtv);
+        iAgree = (CheckBox) findViewById(R.id.checkbox_register_agressment);
+        inputPhoneNum = (EditText) findViewById(R.id.edittext_register_inputphone);
+        inputPassword = (EditText) findViewById(R.id.edittext_register_inputpassword);
+        inputVerification = (EditText) findViewById(R.id.edittext_register_verification);
+        inputUsername = (EditText)findViewById(R.id.edittext_register_inputUsername) ;
+        rePassword =(EditText)findViewById(R.id.edittext_register_inputrepassword);
+        imgcode =(ImageView)findViewById(R.id.imageview_edit_imgCode);//图形验证码显示
+        inputImgVer=(EditText)findViewById(R.id.edittext_img_code);//输入图形验证码
 
-        iAgree = (CheckBox)findViewById(R.id.checkbox_register_agressment);//选择是否同意协议
-
-        inputVerification = (EditText)findViewById(R.id.edittext_register_verification);//输入验证码
-        inputAginPassword = (EditText)findViewById(R.id.edittext_againpass);//再次输入密码
-        inputPhoneNum = (EditText) findViewById(R.id.edittext_register_inputphone);//手机号输入框
-        inputPassword = (EditText) findViewById(R.id.edittext_register_inputpassword);//密码输入框
-        inputUserName = (EditText) findViewById(R.id.edittext_register_inputUsername);//用户名输入框
-
-        back.setOnClickListener(this);//返回按钮的单击事件
+        back.setOnClickListener(this);
         getVerificationCode.setOnClickListener(this);
-        //agreement.setOnClickListener(this); //点击《用户注册协议》事件
-        registerBtn.setOnClickListener(this);//注册按钮的单击事件
-        seePassword.setOnClickListener(this);//查看密码的单击事件
+        agreement.setOnClickListener(this);
+        registerBtn.setOnClickListener(this);
+        seePassword.setOnClickListener(this);
+        imgcode.setOnClickListener(this);
+        imgcode.setOnClickListener(this);
     }
 
     /**
@@ -114,8 +123,10 @@ public class RegisterActivity extends Activity implements OnClickListener {
             public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
                 // TODO Auto-generated method stub
                 isAgreeAgreement = arg1;
+
             }
         });
+
     }
 
     @Override
@@ -127,60 +138,72 @@ public class RegisterActivity extends Activity implements OnClickListener {
                 finish();
                 break;
             case R.id.relativelayout_register_getverification:
-                String phone = inputPhoneNum.getText().toString().trim();
+                String phoneNum = inputPhoneNum.getText().toString().trim();
+                String st2 = inputImgVer.getText().toString().trim();//获取图形验证码的值
                 isNet = receiver.judgeNetIsConnected(RegisterActivity.this);
-               if(Validator.isMobile(phone)){
-                    if(isNet){
-                        getverification(phone);
-                    }else {
-                        Toast.makeText(RegisterActivity.this,"当前没有网络",Toast.LENGTH_SHORT).show();
-                    }
-                }
+              if(!Validator.isMobile(phoneNum)){
+                    Toast.makeText(RegisterActivity.this, "手机号码不正确，请重新输入",
+                            Toast.LENGTH_SHORT).show();
+                }else if(TextUtils.isEmpty(st2)){
+                Toast.makeText(RegisterActivity.this, "验证码不能是空的",
+                        Toast.LENGTH_SHORT).show();
+                }else {
+                  if (isNet) {
+                      getverification(phoneNum,st2);// 获取验证码
+                  } else {
+                      Toast.makeText(RegisterActivity.this, "当前没有网络",
+                              Toast.LENGTH_SHORT).show();
+                  }
+              }
                 break;
             case R.id.textview_register_register:
                 isNet = receiver.judgeNetIsConnected(RegisterActivity.this);
-                String mobile = inputPhoneNum.getText().toString().trim();
-                String validPhoneCode = inputVerification.getText().toString().trim();
-                String username = inputUserName.getText().toString().trim();
+                String phoneNum2 = inputPhoneNum.getText().toString().trim();
+                String verificationCode = inputVerification.getText().toString()
+                        .trim();
                 String password = inputPassword.getText().toString().trim();
-                String repassword = inputAginPassword.getText().toString().trim();
+                String username = inputUsername.getText().toString().trim();
+                String repassword = rePassword.getText().toString().trim();
+                String agent= null;
+                if(isAgreeAgreement){
+                    agent="1";
+                }else {
+                    agent="0";
+                }
                 if (TextUtils.isEmpty(username)) {
-                Toast.makeText(RegisterActivity.this, "用户名不能为空",
-                        Toast.LENGTH_SHORT).show();
-                } else if (TextUtils.isEmpty(mobile)) {
-                    Toast.makeText(RegisterActivity.this, "手机号码不能为空",
-                            Toast.LENGTH_SHORT).show();
-                }  else if(!Validator.isMobile(mobile)){
-                    Toast.makeText(RegisterActivity.this, "请输入正确的手机号",
-                            Toast.LENGTH_SHORT).show();
-                }else if(TextUtils.isEmpty(validPhoneCode)){
-                    Toast.makeText(RegisterActivity.this, "验证码不能为空",
-                            Toast.LENGTH_SHORT).show();
-                }else if (TextUtils.isEmpty(username)) {
                     Toast.makeText(RegisterActivity.this, "用户名不能为空",
                             Toast.LENGTH_SHORT).show();
-                }else if (TextUtils.isEmpty(password)) {
+                }else if (TextUtils.isEmpty(phoneNum2)) {
+                    Toast.makeText(RegisterActivity.this, "手机号码不能为空",
+                            Toast.LENGTH_SHORT).show();
+                } else if (TextUtils.isEmpty(verificationCode)) {
+                    Toast.makeText(RegisterActivity.this, "验证码不能为空",
+                            Toast.LENGTH_SHORT).show();
+                } else if (TextUtils.isEmpty(password)) {
                     Toast.makeText(RegisterActivity.this, "密码不能为空",
                             Toast.LENGTH_SHORT).show();
-                }else if (!password.equals(repassword)) {
-                    Toast.makeText(RegisterActivity.this, "两次密码不一致",
+                } else if(!repassword.equals(password)){
+                    Toast.makeText(RegisterActivity.this, "密码不一致",
                             Toast.LENGTH_SHORT).show();
-                } else if (!isAgreeAgreement) {
+                }else if (!isAgreeAgreement) {
                     Toast.makeText(RegisterActivity.this, "请同意《用户注册协议》",
                             Toast.LENGTH_SHORT).show();
-                }else {
+                } else {
                     if (isNet) {
-                        register(mobile, username, password,validPhoneCode);// 注册
-                        /*Intent loginToForgetpassword = new Intent(RegisterActivity.this,
-                                LoginActivity.class);
-                        startActivity(loginToForgetpassword);*/
+                        register(phoneNum2, verificationCode, password,username,agent);// 注册
                     } else {
                         Toast.makeText(RegisterActivity.this, "当前没有网络",
                                 Toast.LENGTH_SHORT).show();
                     }
                 }
-
                 break;
+            case R.id.textview_register_agressment:
+                Intent registerToTest = new Intent(RegisterActivity.this,
+                        LoginActivity.class);
+                registerToTest.putExtra("name", "用户注册协议");
+                registerToTest.putExtra("activity", "register");
+                startActivity(registerToTest);
+                // 查看输入的密码
             case R.id.relativelayout_register_seepassword:
                 if (isSeePassword) {
                     // 如果当前密码显示，就把密码设置为文本不可见
@@ -194,6 +217,10 @@ public class RegisterActivity extends Activity implements OnClickListener {
                     isSeePassword = true;
                 }
                 break;
+            case  R.id.imageview_edit_imgCode:
+                imgcode.setTag(path);
+                new CanvasImageTask().execute(imgcode);//CanvasImageTask()异步获取图片
+                break;
 
             default:
                 break;
@@ -203,18 +230,17 @@ public class RegisterActivity extends Activity implements OnClickListener {
     /**
      * 注册
      */
-    private void register(final String str1, String str2, String str3,String str4) {
+    private void register(final String str1, String str2, final String str3, final String str4,final String str5) {
         // TODO Auto-generated method stub
-        progressDialog = new ProgressDialog(RegisterActivity.this);//创建加载图片对象
-        progressDialog.setMessage("正在加载，请稍候...");//加载
-
+        progressDialog = new ProgressDialog(RegisterActivity.this);
+        progressDialog.setMessage("正在加载，请稍候...");
         progressDialog.show();
         RequestParams registerParams = new RequestParams(UrlUtils.Reg);
         registerParams.addBodyParameter("mobile", str1);
-        registerParams.addBodyParameter("username", str2);
+        registerParams.addBodyParameter("validPhoneCode", str2);
         registerParams.addBodyParameter("password", str3);
-        registerParams.addBodyParameter("validPhonCode", str4);
-
+        registerParams.addBodyParameter("username", str4);
+        registerParams.addBodyParameter("agent", str5);
         x.http().post(registerParams, new CommonCallback<String>() {
             @Override
             public void onCancelled(CancelledException arg0) {
@@ -222,6 +248,7 @@ public class RegisterActivity extends Activity implements OnClickListener {
                 Toast.makeText(RegisterActivity.this, "取消注册",
                         Toast.LENGTH_SHORT).show();
             }
+
             @Override
             public void onError(Throwable arg0, boolean arg1) {
                 // TODO Auto-generated method stub
@@ -239,24 +266,22 @@ public class RegisterActivity extends Activity implements OnClickListener {
                     JSONObject jsonObject = new JSONObject(arg0);
                     String success = jsonObject.getString("success");
                     String info = jsonObject.getString("info");
-                    if ("1".equals(success)) {
-                        progressDialog.dismiss();
-                        String token = jsonObject.getString("token");//token数据用户唯一标识符
-                        /**
-                         *Toast.makeText( )用来显示信息*/
-
-                        Toast.makeText(RegisterActivity.this, "注册成功",
-                                Toast.LENGTH_SHORT).show();
-                      /*  editor.putString("phone", str1);
-                        editor.putString("userName", str1);
-                        editor.putString("token", token);*/
-                        editor.commit();
-                        finish();
-
-                    } else {
+                    if ("0".equals(success)) {
                         Toast.makeText(RegisterActivity.this, info,
                                 Toast.LENGTH_SHORT).show();
-                        progressDialog.dismiss();//关闭加载
+                        progressDialog.dismiss();//关闭
+                    } else {
+                        progressDialog.dismiss();
+                        String token = jsonObject.getString("token");
+                        Toast.makeText(RegisterActivity.this, "注册成功",
+                                Toast.LENGTH_SHORT).show();
+                        editor.putString("mobile", str1);
+                        editor.putString("username", str4);
+                        editor.putString("password",str3);
+                        editor.putString("token", token);
+                        editor.putString("agent",str5);
+                        editor.commit();
+                        finish();
                     }
                 } catch (JSONException e) {
                     // TODO Auto-generated catch block
@@ -279,18 +304,17 @@ public class RegisterActivity extends Activity implements OnClickListener {
         }
     }
 
+
     /**
      * 获取验证码
      */
-    private void getverification(String str) {
+    private void getverification(final String str, final String str2) {
         // TODO Auto-generated method stub
-        getVerifivationCodeTv.setBackgroundResource(R.drawable.reset);// 点击获取验证码后把背景换为灰色
-        getVerifivationCodeTv.setText("60");// 把内容换为数字
-        getVerificationCode.setEnabled(false);// 设置当前获取验证码按钮为不可点击
-        handler.postDelayed(runnable, 1000);// 每过一秒
+
         RequestParams getVerificationParams = new RequestParams(
                 UrlUtils.GET_VERIFICATION_CODE);
         getVerificationParams.addBodyParameter("phone", str);
+        getVerificationParams.addBodyParameter("captcha", str2);
         x.http().post(getVerificationParams, new CommonCallback<String>() {
             @Override
             public void onCancelled(CancelledException arg0) {
@@ -315,11 +339,25 @@ public class RegisterActivity extends Activity implements OnClickListener {
                     JSONObject jsonObject = new JSONObject(arg0);
                     String success = jsonObject.getString("success");
                     String info = jsonObject.getString("info");
+
                     if("1".equals(success)){
-                        Toast.makeText(RegisterActivity.this,info,Toast.LENGTH_SHORT).show();
-                        System.out.println("获取成功");
+                        Toast.makeText(RegisterActivity.this, info,
+                                Toast.LENGTH_SHORT).show();
+                        getVerificationCodeTv.setBackgroundResource(R.drawable.reset);// 点击获取验证码后把背景换为灰色
+                        getVerificationCodeTv.setText("60");// 把内容换为数字
+                        getVerificationCode.setEnabled(false);// 设置当前获取验证码按钮为不可点击
+                        handler.postDelayed(runnable, 1000);// 每过一秒
+                        editor.putBoolean("isLogin", true);//
+                        editor.putString("phone", str);
+                        editor.putString("captcha", str2);
+                        editor.commit();
                     }else {
-                        Toast.makeText(RegisterActivity.this,info,Toast.LENGTH_SHORT).show();
+                       /* getVerificationCodeTv.setBackgroundResource(R.drawable.reset);// 点击获取验证码后把背景换为灰色
+                        getVerificationCodeTv.setText("");// 把内容换为数字
+                        getVerificationCode.setEnabled(false);// 设置当前获取验证码按钮为不可点击
+                        handler.postDelayed(runnable, 1000);// 每过一秒*/
+                        Toast.makeText(RegisterActivity.this,info,
+                                Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     // TODO Auto-generated catch block
@@ -337,13 +375,12 @@ public class RegisterActivity extends Activity implements OnClickListener {
         public void run() {
             // TODO Auto-generated method stub
             reclen--;
-            getVerifivationCodeTv.setText("" + reclen);
+            getVerificationCodeTv.setText("" + reclen);
             if (reclen == 0) {
                 // 当倒计时到0以后，把背景换为黄色，设置当前按钮可点击，设置字为“获取验证码”,把倒计时重新设置为60
-                getVerifivationCodeTv
+                getVerificationCodeTv
                         .setBackgroundResource(R.drawable.loginbackgroundpic);
-                getVerifivationCodeTv
-                        .setText("获取验证码");
+                getVerificationCodeTv.setText("获取验证码");
                 getVerificationCode.setEnabled(true);
                 reclen = 60;
             } else {
@@ -351,4 +388,5 @@ public class RegisterActivity extends Activity implements OnClickListener {
             }
         }
     };
+
 }

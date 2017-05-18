@@ -27,11 +27,11 @@ public class UrlUtils {
     /**
      * 注册接口
      */
-    public static final String Reg = "http://124.166.246.120:8000/nn2/user/login/doreg";
+    public static final String Reg = "http://ceshi.nainaiwang.com/user/login/doreg";
     /**
      * 短信验证码接口
      */
-    public static final String GET_VERIFICATION_CODE ="http://124.166.246.120:8000/nn2/user/login/sendMessage";
+    public static final String GET_VERIFICATION_CODE ="http://ceshi.nainaiwang.com/user/login/sendMessage";
 
     /**
      * 登录接口
@@ -60,7 +60,6 @@ public class UrlUtils {
      * 上传图片接口
      */
     public static final String UPLOAD_IMG = "http://ceshi.nainaiwang.com/user/ucenter/upload";
-
 
 
 
