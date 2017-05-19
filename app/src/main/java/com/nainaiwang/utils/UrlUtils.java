@@ -60,7 +60,10 @@ public class UrlUtils {
      * 上传图片接口
      */
     public static final String UPLOAD_IMG = "http://ceshi.nainaiwang.com/user/ucenter/upload";
-
+    /**
+     * 图片验证码
+     */
+    public static final String Img = "http://ceshi.nainaiwang.com/user/login/captcha";
 
 
 }

@@ -9,6 +9,8 @@ import org.xutils.x;
  */
 public class ZiXunApplication extends Application {
 
+    public static String myCookieValue;
+
     @Override
     public void onCreate() {
         super.onCreate();

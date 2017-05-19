@@ -31,7 +31,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.xutils.common.Callback.CommonCallback;
 import org.xutils.http.RequestParams;
+import org.xutils.http.annotation.HttpRequest;
+import org.xutils.http.annotation.HttpResponse;
 import org.xutils.x;
+
+import java.io.File;
 
 public class RegisterActivity extends Activity implements OnClickListener {
 
@@ -54,7 +58,7 @@ public class RegisterActivity extends Activity implements OnClickListener {
     private ProgressDialog progressDialog;// 进度框
     private JudgeNetIsConnectedReceiver receiver;// 广播接受者
 
-    private String path="http://ceshi.nainaiwang.com/user/login/captcha";
+   private String path="http://ceshi.nainaiwang.com/user/login/captcha";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,9 +75,9 @@ public class RegisterActivity extends Activity implements OnClickListener {
         super.onResume();
         sp = getSharedPreferences("nainaiwang", MODE_PRIVATE);
         editor = sp.edit();
-        /*getimgcode();*/
-        imgcode.setTag(path);
-        new CanvasImageTask().execute(imgcode);
+         imgcode.setTag(path);
+           new CanvasImageTask().execute(imgcode);
+
     }
 
 
@@ -220,12 +224,15 @@ public class RegisterActivity extends Activity implements OnClickListener {
             case  R.id.imageview_edit_imgCode:
                 imgcode.setTag(path);
                 new CanvasImageTask().execute(imgcode);//CanvasImageTask()异步获取图片
+              /*  getImg();*/
                 break;
 
             default:
                 break;
         }
     }
+
+
 
     /**
      * 注册
@@ -303,7 +310,38 @@ public class RegisterActivity extends Activity implements OnClickListener {
             unregisterReceiver(receiver);
         }
     }
+/*图形验证码*//*
+public void getImg(){
 
+    RequestParams getVerificationParams = new RequestParams(
+            UrlUtils.Img);
+    x.http().post(getVerificationParams, new CommonCallback<ImageView>() {
+        @Override
+        public void onCancelled(CancelledException arg0) {
+            // TODO Auto-generated method stub
+        }
+
+        @Override
+        public void onError(Throwable arg0, boolean arg1) {
+            // TODO Auto-generated method stub
+        }
+
+        @Override
+        public void onFinished() {
+            // TODO Auto-generated method stub
+        }
+
+        @Override
+        public void onSuccess(ImageView arg0) {
+            // TODO Auto-generated method stub
+                System.out.println("获取图形验证码：" + arg0);
+
+
+        }
+    });
+}*/
+
+/*图形验证码 end*/
 
     /**
      * 获取验证码
@@ -313,8 +351,12 @@ public class RegisterActivity extends Activity implements OnClickListener {
 
         RequestParams getVerificationParams = new RequestParams(
                 UrlUtils.GET_VERIFICATION_CODE);
+        getVerificationParams.addHeader("Cookie", "JSESSIONID=" + ZiXunApplication.myCookieValue);
+        getVerificationParams.addHeader("Content-Type", "application/json;charset=UTF-8");
+        getVerificationParams.setUseCookie(true);
         getVerificationParams.addBodyParameter("phone", str);
         getVerificationParams.addBodyParameter("captcha", str2);
+
         x.http().post(getVerificationParams, new CommonCallback<String>() {
             @Override
             public void onCancelled(CancelledException arg0) {

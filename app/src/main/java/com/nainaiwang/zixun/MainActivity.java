@@ -45,13 +45,16 @@ import org.xutils.DbManager;
 import org.xutils.common.Callback;
 import org.xutils.ex.DbException;
 import org.xutils.http.RequestParams;
+import org.xutils.http.cookie.DbCookieStore;
 import org.xutils.x;
 
+import java.net.HttpCookie;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener {
 
+    private static String myCookieValue;
     private TextView search, showChannels, /*mainRegister,*/myCenter;
     private MyViewPager viewPager;
     private TabLayout tabLayout;
@@ -166,7 +169,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         netDialog = builder.create();
         netDialog.show();
     }
-
+private SharedPreferences.Editor editor;
     /**
      * 下载json数据
      */
@@ -183,11 +186,26 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         x.http().post(jsonParams, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String s) {
+                DbCookieStore instance = DbCookieStore.INSTANCE;
+                List<HttpCookie> cookies = instance.getCookies();
+                for(HttpCookie cookie:cookies){
+                    String name = cookie.getName();
+                    String value = cookie.getValue();
+                    if("JSESSIONID".equals(name)){
+                        String myCookie = value;
+                        String sessionId = name;
+                        ZiXunApplication.myCookieValue = value;
+
+                    }
+                }
                 try {
                     Log.i("MainActivity",s);
                     JSONObject jsonObject1 = new JSONObject(s);
                     String code = jsonObject1.getString("success");
+                  /*  String token = jsonObject1.getString("success");*/
                     if (code.equals("1")) {
+                        /*editor.putString("token",token);
+                        editor.commit();*/
                         JSONArray jsonArray1 = jsonObject1.getJSONArray("info");
                         for (int i = 0; i < jsonArray1.length(); i++) {
                             HomePageChannels homePageChannels = new HomePageChannels();
