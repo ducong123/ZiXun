@@ -5,6 +5,14 @@
     android:orientation="vertical"
     tools:context="com.nainaiwang.zixun.MainActivity" >
 
+    <ListView
+        android:id="@+id/listview_mycollection_collection"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="1dp"
+        android:background="@android:color/white"
+        android:listSelector="@android:color/transparent"></ListView>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -29,17 +37,6 @@
             android:text="我的收藏"
             android:textSize="17sp" />
     </RelativeLayout>
-
-    <ListView
-        android:id="@+id/listview_mycollection_collection"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="1dp"
-        android:background="@android:color/white"
-        android:listSelector="@android:color/transparent" >
-    </ListView>
-
-
 
 
 </LinearLayout>
