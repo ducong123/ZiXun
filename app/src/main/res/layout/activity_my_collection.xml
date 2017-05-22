@@ -1,0 +1,45 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.nainaiwang.zixun.MainActivity" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@android:color/white" >
+
+        <RelativeLayout
+            android:id="@+id/relativelayout_mycollection_back"
+            android:layout_width="40dp"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:layout_width="8dp"
+                android:layout_height="15dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/back" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="我的收藏"
+            android:textSize="17sp" />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/listview_mycollection_collection"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="1dp"
+        android:background="@android:color/white"
+        android:listSelector="@android:color/transparent" >
+    </ListView>
+
+
+
+
+</LinearLayout>

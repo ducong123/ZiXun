@@ -37,6 +37,8 @@
         <activity android:name=".SetPasswordActivity"> </activity>
         <!--修改密码功能 end-->
         <activity android:name=".SearchActivity" />
+        <!--收藏页面
+        <activity android:name=".MyCollectionActivity" />-->
 
         <meta-data
             android:name="com.google.android.gms.version"
