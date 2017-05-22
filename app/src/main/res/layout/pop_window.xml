@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:paddingLeft="10dp"
-            android:text="是否删除该资讯"
+            android:text="是否删除该收藏"
             android:textColor="#333333"
             android:textSize="20sp" />
 
