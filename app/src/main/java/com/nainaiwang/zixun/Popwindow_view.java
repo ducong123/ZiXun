@@ -1,11 +1,9 @@
 package com.nainaiwang.zixun;
 
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ActionMenuView;
 import android.util.Log;
@@ -18,13 +16,11 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 
-import static android.content.DialogInterface.*;
-
 /**
  * Created by Administrator on 2017/5/22 0022.
  */
 
-public class Popwindow extends AppCompatActivity implements View.OnLongClickListener {
+public class Popwindow_view extends AppCompatActivity implements View.OnLongClickListener {
 
     private Button button;
     private ListView listView;
@@ -32,9 +28,9 @@ public class Popwindow extends AppCompatActivity implements View.OnLongClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_collection);
+        setContentView(R.layout.activity_my_history);
 
-        button  = (Button) findViewById(R.id.listview_mycollection_collection);
+        button  = (Button) findViewById(R.id.listview_myhistory_history);
 //      listView = (ListView) findViewById(R.id.list_view);
         button.setOnLongClickListener(this);
 
@@ -71,7 +67,7 @@ public class Popwindow extends AppCompatActivity implements View.OnLongClickList
             }
         });
         //第一个参数为父View对象，即PopupWindow所在的父控件对象，第二个参数为它的重心，后面两个分别为x轴和y轴的偏移量
-        popWindow.showAtLocation(inflater.inflate(R.layout.activity_my_collection, null), Gravity.CENTER, 0, 0);
+        popWindow.showAtLocation(inflater.inflate(R.layout.activity_my_history, null), Gravity.CENTER, 0, 0);
 
     }
 

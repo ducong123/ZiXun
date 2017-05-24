@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.nainaiwang.zixun.Popwindow" >
+    tools:context="com.nainaiwang.zixun.Popwindow_view" >
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -31,7 +32,7 @@
     </RelativeLayout>
 
     <ListView
-        android:id="@+id/listview_mycollection_collection"
+        android:id="@+id/listview_myhistory_history"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="1dp"
