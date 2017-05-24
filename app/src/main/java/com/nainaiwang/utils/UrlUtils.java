@@ -27,43 +27,43 @@ public class UrlUtils {
     /**
      * 注册接口
      */
-    public static final String Reg = "http://ceshi.nainaiwang.com/user/login/doreg";
+    public static final String Reg = "http://124.166.246.120:8000/nn2/user/login/doreg";
     /**
      * 短信验证码接口
      */
-    public static final String GET_VERIFICATION_CODE ="http://ceshi.nainaiwang.com/user/login/sendMessage";
+    public static final String GET_VERIFICATION_CODE ="http://124.166.246.120:8000/nn2/user/login/sendMessage";
 
     /**
      * 登录接口
      */
-    public static final String LOGIN = "http://ceshi.nainaiwang.com/user/app/dolog";
+    public static final String LOGIN = "http://124.166.246.120:8000/nn2/user/app/dolog";
 
 
     /**
      * 判断是否登录接口
      */
-    public static final String CHECKLOG = "http://ceshi.nainaiwang.com/user/app/checklog";
+    public static final String CHECKLOG = "http://124.166.246.120:8000/nn2/user/app/checklog";
 
     /**
      * 退出登录接口
      */
-    public static final String EXIT = "http://ceshi.nainaiwang.com/user/app/logout";
+    public static final String EXIT = "http://124.166.246.120:8000/nn2/user/app/logout";
     /**
      * 修改密码接口
      */
-    public static final String SET_PASSWORD = "http://ceshi.nainaiwang.com/user/ucenter/chgPass";
+    public static final String SET_PASSWORD = "http://124.166.246.120:8000/nn2/user/ucenter/chgPass";
     /**
      * 资料修改接口
      */
-    public static final String SET_DATA = "http://ceshi.nainaiwang.com/user/ucenterapp/editInfo";
+    public static final String SET_DATA = "http://124.166.246.120:8000/nn2/user/ucenterApp/editInfo";
     /**
      * 上传图片接口
      */
-    public static final String UPLOAD_IMG = "http://ceshi.nainaiwang.com/user/ucenter/upload";
+    public static final String UPLOAD_IMG = "http://124.166.246.120:8000/nn2/user/ucenter/upload";
     /**
      * 图片验证码
      */
-    public static final String Img = "http://ceshi.nainaiwang.com/user/login/captcha";
+/*    public static final String Img = "http://124.166.246.120:8000/nn2/user/app/getCaptcha";*/
 
 
 }

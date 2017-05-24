@@ -22,6 +22,7 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ImageView;
 
 /**
  *
@@ -55,6 +56,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 		super.onResume();
 		sp = getSharedPreferences("nainaiwang", MODE_PRIVATE);
 		editor = sp.edit();
+
 	}
 
 	private void initData() {
@@ -152,7 +154,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 					String info = jsonObject.getString("info");
 					if ("0".equals(errorCode)) {
 						editor.commit();
-						Toast.makeText(LoginActivity.this, "登录成功",
+						Toast.makeText(LoginActivity.this, info,
 								Toast.LENGTH_SHORT).show();
 						finish();
 
@@ -167,5 +169,6 @@ public class LoginActivity extends Activity implements OnClickListener {
 			}
 		});
 	}
+
 
 }

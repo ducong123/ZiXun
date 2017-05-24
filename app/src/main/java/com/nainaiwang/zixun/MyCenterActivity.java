@@ -90,8 +90,11 @@ public class MyCenterActivity extends Activity implements OnClickListener {
 
 	public void  onCenter(){
 		// TODO Auto-generated method stub
+
 		RequestParams loginParams = new RequestParams(UrlUtils.CHECKLOG);
+		System.out.println("ddl");
 		x.http().post(loginParams, new CommonCallback<String>() {
+
 			@Override
 			public void onCancelled(CancelledException arg0) {
 				// TODO Auto-generated method stub
@@ -109,23 +112,27 @@ public class MyCenterActivity extends Activity implements OnClickListener {
 
 			@Override
 			public void onSuccess(String arg0) {
+				System.out.println("是否登录信息="+arg0);
 				// TODO Auto-generated method stub
 				try {
 					JSONObject jsonObject = new JSONObject(arg0);
+
 					String log = jsonObject.getString("log");
 
-					if ("0".equals(log)) {
-						Toast.makeText(MyCenterActivity.this, "未登录,请先登录",
+					//String info =jsonObject.getString("info");
+					//System.out.println(info);
+
+					if("0".equals(log)){
+						Toast.makeText(MyCenterActivity.this, "请先登录",
 								Toast.LENGTH_SHORT).show();
-					/*	Thread.sleep(2000);*/
 						Intent loginTo= new Intent(MyCenterActivity.this,
 								LoginActivity.class);
 						startActivity(loginTo);
+					}
+					/*if ("0".equals(log)) {
+						System.out.println("ddl");
 
-					} /*else if("1".equals(log)) {
-						Toast.makeText(MyCenterActivity.this,
-								"已登录",
-								Toast.LENGTH_SHORT).show();
+
 
 					}*/
 				} catch (JSONException e) {
@@ -168,7 +175,6 @@ public class MyCenterActivity extends Activity implements OnClickListener {
 						Toast.makeText(MyCenterActivity.this, info,
 								Toast.LENGTH_SHORT).show();
 						finish();
-
 					} else{
 						Toast.makeText(MyCenterActivity.this,info,Toast.LENGTH_LONG);
 					}

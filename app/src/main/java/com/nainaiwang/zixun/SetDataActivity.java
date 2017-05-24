@@ -247,13 +247,11 @@ public  void selectDate(){
 		progressDialog.setMessage("正在加载，请稍候...");
 		progressDialog.show();//显示加载动画
 		RequestParams saveParams = new RequestParams(UrlUtils.SET_DATA);//调用修改资料接口
-		/*File head =new File(Environment.getExternalStorageDirectory().getPath(),"setusername.png");*/
-		//final String str4 = null;
 		saveParams.addBodyParameter("token",token);
 		saveParams.addBodyParameter("nick",str1);
 		saveParams.addBodyParameter("birth",str2);
 		saveParams.addBodyParameter("sign",str3);
-		saveParams.addBodyParameter("head",str4);
+		saveParams.addBodyParameter("head_pic",str4);
 
 		x.http().post(saveParams, new Callback.CommonCallback<String>() {
 
@@ -284,7 +282,6 @@ public  void selectDate(){
 					JSONObject jsonObject1 = new JSONObject(arg0);
 					String success = jsonObject1.getString("success");
 					String info = jsonObject1.getString("info");
-					String returnUrl = jsonObject1.getString("returnUrl");
 					if ("1".equals(success)) {
 						progressDialog.dismiss();
 						System.out.println("成功");
@@ -372,7 +369,7 @@ public  void selectDate(){
                         this.iv_img.setImageBitmap(bitmap);
 						uploadAndSaveImage(data);// 上传并且保存图片
 
-                        System.out.println("ll图"+bitmap);
+                        System.out.println("bitmap类型图片"+bitmap);
 					}
 					break;
 
@@ -467,7 +464,7 @@ public  void selectDate(){
 						@Override
 						public void onSuccess(String arg0) {
 							// TODO Auto-generated method stub
-							System.out.println("复制 = " + arg0);
+							System.out.println("修改信息 = " + arg0);
 							try {
 								JSONObject jsonObject = new JSONObject(arg0);
 								String flag = jsonObject.getString("flag");

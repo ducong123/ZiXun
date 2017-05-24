@@ -6,11 +6,16 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CheckBox;
@@ -23,19 +28,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nainaiwang.myreceiver.JudgeNetIsConnectedReceiver;
-import com.nainaiwang.utils.CanvasImageTask;
 import com.nainaiwang.utils.UrlUtils;
+import com.nainaiwang.utils.Utils;
 import com.nainaiwang.utils.Validator;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.xutils.common.Callback.CommonCallback;
 import org.xutils.http.RequestParams;
-import org.xutils.http.annotation.HttpRequest;
-import org.xutils.http.annotation.HttpResponse;
+
 import org.xutils.x;
 
-import java.io.File;
 
 public class RegisterActivity extends Activity implements OnClickListener {
 
@@ -49,16 +52,15 @@ public class RegisterActivity extends Activity implements OnClickListener {
     private boolean isAgreeAgreement = true;
     private boolean isNet;// 是否有网络
 
-    private Handler handler = new Handler();
     private int reclen = 60;// 倒计时60秒
-
+    private Handler handler = new Handler();
     private SharedPreferences sp;
     private Editor editor;
 
     private ProgressDialog progressDialog;// 进度框
     private JudgeNetIsConnectedReceiver receiver;// 广播接受者
 
-   private String path="http://ceshi.nainaiwang.com/user/login/captcha";
+   private String path="http://124.166.246.120:8000/nn2/user/app/getCaptcha";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,13 +77,31 @@ public class RegisterActivity extends Activity implements OnClickListener {
         super.onResume();
         sp = getSharedPreferences("nainaiwang", MODE_PRIVATE);
         editor = sp.edit();
-         imgcode.setTag(path);
-           new CanvasImageTask().execute(imgcode);
+        getImgCade();
 
     }
+    /**
+     * 加载图片时的回调
+     *
+     */
+public  void getImgCade(){
+    new Utils().loadImage(path, new Utils.OnLoadImageListener()
+    {
+        @Override
+        public void onLoadImage(Bitmap bm, String imageUrl)
+        {
+            if (null == bm)
+            {
+                //imgcode.setImageResource(R.drawable.delete);//没有加载图时的默认图片
+            }
+            else
+            {
+                imgcode.setImageBitmap(bm);
+            }
+        }
 
-
-
+    });
+}/*图形验证码 end*/
     /**
      * 初始化控件
      */
@@ -194,7 +214,7 @@ public class RegisterActivity extends Activity implements OnClickListener {
                             Toast.LENGTH_SHORT).show();
                 } else {
                     if (isNet) {
-                        register(phoneNum2, verificationCode, password,username,agent);// 注册
+                        register(phoneNum2, verificationCode, password,username,agent,repassword);// 注册
                     } else {
                         Toast.makeText(RegisterActivity.this, "当前没有网络",
                                 Toast.LENGTH_SHORT).show();
@@ -222,9 +242,7 @@ public class RegisterActivity extends Activity implements OnClickListener {
                 }
                 break;
             case  R.id.imageview_edit_imgCode:
-                imgcode.setTag(path);
-                new CanvasImageTask().execute(imgcode);//CanvasImageTask()异步获取图片
-              /*  getImg();*/
+                            getImgCade();
                 break;
 
             default:
@@ -237,7 +255,7 @@ public class RegisterActivity extends Activity implements OnClickListener {
     /**
      * 注册
      */
-    private void register(final String str1, String str2, final String str3, final String str4,final String str5) {
+    private void register(final String str1, String str2, final String str3, final String str4,final String str5,final String str6) {
         // TODO Auto-generated method stub
         progressDialog = new ProgressDialog(RegisterActivity.this);
         progressDialog.setMessage("正在加载，请稍候...");
@@ -248,6 +266,7 @@ public class RegisterActivity extends Activity implements OnClickListener {
         registerParams.addBodyParameter("password", str3);
         registerParams.addBodyParameter("username", str4);
         registerParams.addBodyParameter("agent", str5);
+        registerParams.addBodyParameter("repassword", str6);
         x.http().post(registerParams, new CommonCallback<String>() {
             @Override
             public void onCancelled(CancelledException arg0) {
@@ -273,6 +292,7 @@ public class RegisterActivity extends Activity implements OnClickListener {
                     JSONObject jsonObject = new JSONObject(arg0);
                     String success = jsonObject.getString("success");
                     String info = jsonObject.getString("info");
+
                     if ("0".equals(success)) {
                         Toast.makeText(RegisterActivity.this, info,
                                 Toast.LENGTH_SHORT).show();
@@ -287,6 +307,7 @@ public class RegisterActivity extends Activity implements OnClickListener {
                         editor.putString("password",str3);
                         editor.putString("token", token);
                         editor.putString("agent",str5);
+                        editor.putString("repassword",str6);
                         editor.commit();
                         finish();
                     }
@@ -310,39 +331,6 @@ public class RegisterActivity extends Activity implements OnClickListener {
             unregisterReceiver(receiver);
         }
     }
-/*图形验证码*//*
-public void getImg(){
-
-    RequestParams getVerificationParams = new RequestParams(
-            UrlUtils.Img);
-    x.http().post(getVerificationParams, new CommonCallback<ImageView>() {
-        @Override
-        public void onCancelled(CancelledException arg0) {
-            // TODO Auto-generated method stub
-        }
-
-        @Override
-        public void onError(Throwable arg0, boolean arg1) {
-            // TODO Auto-generated method stub
-        }
-
-        @Override
-        public void onFinished() {
-            // TODO Auto-generated method stub
-        }
-
-        @Override
-        public void onSuccess(ImageView arg0) {
-            // TODO Auto-generated method stub
-                System.out.println("获取图形验证码：" + arg0);
-
-
-        }
-    });
-}*/
-
-/*图形验证码 end*/
-
     /**
      * 获取验证码
      */
@@ -351,9 +339,9 @@ public void getImg(){
 
         RequestParams getVerificationParams = new RequestParams(
                 UrlUtils.GET_VERIFICATION_CODE);
-        getVerificationParams.addHeader("Cookie", "JSESSIONID=" + ZiXunApplication.myCookieValue);
-        getVerificationParams.addHeader("Content-Type", "application/json;charset=UTF-8");
-        getVerificationParams.setUseCookie(true);
+        //getVerificationParams.addHeader("Cookie", "JSESSIONID=" + ZiXunApplication.myCookieValue);
+        //getVerificationParams.addHeader("Content-Type", "application/json;charset=UTF-8");
+        //getVerificationParams.setUseCookie(true);
         getVerificationParams.addBodyParameter("phone", str);
         getVerificationParams.addBodyParameter("captcha", str2);
 
@@ -394,10 +382,6 @@ public void getImg(){
                         editor.putString("captcha", str2);
                         editor.commit();
                     }else {
-                       /* getVerificationCodeTv.setBackgroundResource(R.drawable.reset);// 点击获取验证码后把背景换为灰色
-                        getVerificationCodeTv.setText("");// 把内容换为数字
-                        getVerificationCode.setEnabled(false);// 设置当前获取验证码按钮为不可点击
-                        handler.postDelayed(runnable, 1000);// 每过一秒*/
                         Toast.makeText(RegisterActivity.this,info,
                                 Toast.LENGTH_SHORT).show();
                     }

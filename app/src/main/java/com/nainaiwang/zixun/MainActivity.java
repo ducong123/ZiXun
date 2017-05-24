@@ -186,7 +186,7 @@ private SharedPreferences.Editor editor;
         x.http().post(jsonParams, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String s) {
-                DbCookieStore instance = DbCookieStore.INSTANCE;
+              /*  DbCookieStore instance = DbCookieStore.INSTANCE;
                 List<HttpCookie> cookies = instance.getCookies();
                 for(HttpCookie cookie:cookies){
                     String name = cookie.getName();
@@ -197,7 +197,7 @@ private SharedPreferences.Editor editor;
                         ZiXunApplication.myCookieValue = value;
 
                     }
-                }
+                }获取sessionId*/
                 try {
                     Log.i("MainActivity",s);
                     JSONObject jsonObject1 = new JSONObject(s);
