@@ -5,11 +5,13 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.Uri;
@@ -67,7 +69,7 @@ public class SetDataActivity extends Activity implements OnClickListener {
 	private JudgeNetIsConnectedReceiver receiver;//广播接受者
 	private AlertDialog dialog;//对话框
 	private SharedPreferences sp;//存储数据
-	private String token;//用户唯一标识
+	private String id;//用户唯一标识
     private boolean isNet;
 	private ProgressDialog progressDialog;
 
@@ -92,26 +94,28 @@ public class SetDataActivity extends Activity implements OnClickListener {
 		// TODO Auto-generated method stub
 		sp = getSharedPreferences("nainaiwang", MODE_PRIVATE);
 		edit = sp.edit();
-		token = sp.getString("token", "null");
-
+		id = sp.getString("id", "null");
+		/*editDate();*/
 
 
 		receiver = new JudgeNetIsConnectedReceiver();
 		IntentFilter intentFilter = new IntentFilter();
 		intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
 		registerReceiver(receiver, intentFilter);
-
+        id = sp.getString("id",null);
 		//Intent getIntent = getIntent();
 		String nick = sp.getString("nick","null");
-		String  brith = sp.getString("brith","null");
+		String  birth = sp.getString("birth","null");
 		String sign = sp.getString("sign","null");
-		String img = sp.getString("head","null");
-		System.out.println("t图片地址="+img+"nick"+nick);
-
+		String head_pic = sp.getString("head_pic","null");
+		//String head = sp.getString("head","null");
 		inputUserName.setText(nick);
-		inputdate.setText(brith);
+		inputdate.setText(birth);
 		inputIntro.setText(sign);
-	    iv_img.setImageURI(Uri.parse(img));
+        x.image().bind(iv_img,head_pic);
+
+		//iv_img.setImageBitmap(head);
+        System.out.println("编辑原信息head_pic="+head_pic+"nick="+nick+",sign="+sign+",birth="+birth);
 	}
 	private void initView() {
 		// TODO Auto-generated method stub
@@ -170,15 +174,11 @@ public class SetDataActivity extends Activity implements OnClickListener {
             case R.id.edit_date_time://点击设置日期
 				selectDate();
                 break;
-			/*case R.id.edit_sex://点击设置性别
-				showSexChooseDialog();
-				break;*/
 			case R.id.textview_data_save:
 				String nick = inputUserName.getText().toString().trim();
 				String sign = inputIntro.getText().toString().trim();
 				String brith = inputdate.getText().toString().trim();
-                String head = getImageUri().toString();
-
+               // String head = iv_img.getTag().toString().trim();
                 if (TextUtils.isEmpty(nick)) {
 					Toast.makeText(SetDataActivity.this, "用户名不能为空",
 							Toast.LENGTH_SHORT).show();
@@ -188,7 +188,7 @@ public class SetDataActivity extends Activity implements OnClickListener {
 				} else {
 					isNet = receiver.judgeNetIsConnected(SetDataActivity.this);
 					if(isNet){
-						saveDate(nick,brith,sign,head);
+						saveDate(nick,brith,sign);
 					} else {
 						Toast.makeText(SetDataActivity.this, "当前没有网络",
 								Toast.LENGTH_SHORT).show();
@@ -240,18 +240,18 @@ public  void selectDate(){
 /*	性别选择框 end*/
 
 	//保存个人资料
-	private void saveDate(final String str1, final String str2, final String str3,final String str4){
-		System.out.println("token="+ token + ",str1=" +str1+",str2="+str2);//打印值
+	private void saveDate(final String str1, final String str2, final String str3){
+		System.out.println("token="+ id + ",str1=" +str1+",str2="+str2+",str3"+str3);//打印值
 
 		progressDialog = new ProgressDialog(SetDataActivity.this);
 		progressDialog.setMessage("正在加载，请稍候...");
 		progressDialog.show();//显示加载动画
 		RequestParams saveParams = new RequestParams(UrlUtils.SET_DATA);//调用修改资料接口
-		saveParams.addBodyParameter("token",token);
+		saveParams.addBodyParameter("id",id);
 		saveParams.addBodyParameter("nick",str1);
 		saveParams.addBodyParameter("birth",str2);
 		saveParams.addBodyParameter("sign",str3);
-		saveParams.addBodyParameter("head_pic",str4);
+		//saveParams.addBodyParameter("head", str4);
 
 		x.http().post(saveParams, new Callback.CommonCallback<String>() {
 
@@ -287,11 +287,11 @@ public  void selectDate(){
 						System.out.println("成功");
 						Toast.makeText(SetDataActivity.this, "成功修改",
 								Toast.LENGTH_SHORT).show();
-						edit.putString("token", token);
+						edit.putString("id", id);
 						edit.putString("nick", str1);
-						edit.putString("brith", str2);
+						edit.putString("birth", str2);
 						edit.putString("sign", str3);
-						edit.putString("head", str4);
+						//edit.putString("head", str4);
 						edit.commit();
 						finish();
 					} else if("0".equals(success)){
@@ -350,7 +350,7 @@ public  void selectDate(){
 
 				case IMAGE_REQUEST_CODE:
 					resizeImage(data.getData());// 对从图库返回回来的图片进行裁剪,data.getData()方法获得的是图片的uri，也就是路径
-                    System.out.println("data图"+data.getData());
+                    //System.out.println("data图"+data.getData());
 					break;
 				case CAMERA_REQUEST_CODE:
 					if (isSdcardExisting()) {
@@ -363,13 +363,7 @@ public  void selectDate(){
 				// 如果返回的是裁剪码，当data不为空的时候，对data进行操作
 				case RESIZE_REQUEST_CODE:
 					if (data != null) {
-                      /*  String img = getImageUri().toString();
-                        iv_img.setImageURI(Uri.parse(img));*/
-                        Bitmap bitmap = data.getParcelableExtra("data");
-                        this.iv_img.setImageBitmap(bitmap);
 						uploadAndSaveImage(data);// 上传并且保存图片
-
-                        System.out.println("bitmap类型图片"+bitmap);
 					}
 					break;
 
@@ -419,10 +413,14 @@ public  void selectDate(){
 	 *
 	 */
 	private void uploadAndSaveImage(Intent data) {
+		System.out.println("data值"+data);
 		Bitmap photo = null;// 新建一个Bitmap图片对象
 		Bundle extras = data.getExtras();// 取出data中的图片数据
+
 		if (extras != null) {
 			photo = extras.getParcelable("data");// 获取到图片
+			Bitmap bitmap = data.getParcelableExtra("data");
+			this.iv_img.setImageBitmap(bitmap);
 			if (isSdcardExisting()) {
 				File imageFile = new File(Environment
 						.getExternalStorageDirectory().getPath(),
@@ -439,7 +437,7 @@ public  void selectDate(){
 							UrlUtils.UPLOAD_IMG);//上传头像接口
 					//File img = new File(path);
                     uploadParams.setMultipart(true);
-					uploadParams.addBodyParameter("token", token);
+					uploadParams.addBodyParameter("token", id);
 					uploadParams.addBodyParameter("img",imageFile,content_type);//设置上传图片表单编制为multipart/form-data
 					x.http().post(uploadParams, new Callback.CommonCallback<String>() {
 						@Override
@@ -464,25 +462,21 @@ public  void selectDate(){
 						@Override
 						public void onSuccess(String arg0) {
 							// TODO Auto-generated method stub
-							System.out.println("修改信息 = " + arg0);
+							System.out.println("修改信息图 = " + arg0);
 							try {
 								JSONObject jsonObject = new JSONObject(arg0);
 								String flag = jsonObject.getString("flag");
-								String error = jsonObject.getString("error");
-                                String img = jsonObject.getString("img");
+							//	String error = jsonObject.getString("error");
+								String head_pic =jsonObject.getString("head_pic");
 								if ("1".equals(flag)) {
-									Toast.makeText(SetDataActivity.this, "上传成功",
-											Toast.LENGTH_SHORT).show();
-                                    edit.putString("token", token);
-									edit.putString(
-											"img",
-										img);// 头像保存的本地地址
-								/*	edit.putString("thumb", thumb);// 图片保存的网络地址
-									edit.putString("img", img);*/
+									/*edit.putString("img", img);// 头像保存的本地地址*/
+                                    edit.putString("head_pic", head_pic);
 									edit.commit();
+                                    Toast.makeText(SetDataActivity.this, "上传成功",
+                                            Toast.LENGTH_SHORT).show();
 								} else {
 									Toast.makeText(SetDataActivity.this,
-											error, Toast.LENGTH_SHORT)
+											"上传失败，请重新上传", Toast.LENGTH_SHORT)
 											.show();
 								}
 							} catch (JSONException e) {
@@ -515,7 +509,6 @@ public  void selectDate(){
 		File file = new File(path);// 获取根目录
 		return Uri.fromFile(file);
 	}
-
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub

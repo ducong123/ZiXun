@@ -37,6 +37,7 @@
                 android:layout_centerInParent="true"
                 android:text="@string/personalcenter"
                 android:textSize="17sp" />
+
         </RelativeLayout>
 
 
@@ -51,7 +52,10 @@
             android:orientation="vertical"
             android:weightSum="1">
 
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/graytext" />
             <RelativeLayout
                 android:id="@+id/relativelayout_myshancheng_myorder"
                 android:layout_width="match_parent"
@@ -83,7 +87,10 @@
                     android:layout_marginRight="15dp"
                     android:background="@drawable/torightgray" />
             </RelativeLayout>
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/graytext" />
             <RelativeLayout
                 android:id="@+id/relativelayout_myshancheng_myguanzhu"
                 android:layout_width="match_parent"
@@ -115,7 +122,10 @@
                     android:layout_marginRight="15dp"
                     android:background="@drawable/torightgray" />
             </RelativeLayout>
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/graytext" />
             <RelativeLayout
                 android:id="@+id/relativelayout_myshancheng_myjifen"
                 android:layout_width="match_parent"
@@ -149,7 +159,10 @@
                     android:layout_marginRight="15dp"
                     android:background="@drawable/torightgray" />
             </RelativeLayout>
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/graytext" />
             <RelativeLayout
                 android:id="@+id/relativelayout_myshancheng_address"
                 android:layout_width="match_parent"
@@ -182,7 +195,10 @@
                     android:layout_marginRight="15dp"
                     android:background="@drawable/torightgray" />
             </RelativeLayout>
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/graytext" />
             <RelativeLayout
                 android:id="@+id/relativelayout_myshancheng_suggest"
                 android:layout_width="match_parent"
@@ -215,7 +231,10 @@
                     android:layout_marginRight="15dp"
                     android:background="@drawable/torightgray" />
             </RelativeLayout>
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/graytext" />
             <RelativeLayout
                 android:id="@+id/relativelayout_myshancheng_help"
                 android:layout_width="match_parent"
@@ -249,7 +268,10 @@
                     android:background="@drawable/torightgray" />
             </RelativeLayout>
 
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/graytext" />
             <TextView
                 android:id="@+id/exitLog"
                 android:layout_width="match_parent"

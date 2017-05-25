@@ -32,6 +32,7 @@ public class MyCenterActivity extends Activity implements OnClickListener {
 	private TextView exitLogBtn,accountSecurityBtn;//退出登录按钮，跳转账号安全按钮
 	private SharedPreferences sp; //存储对象
 	private ProgressDialog progressDialog;// 进度框
+	private String id;//用户唯一标识
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -53,6 +54,8 @@ public class MyCenterActivity extends Activity implements OnClickListener {
 
 	private void initData() {
 		// TODO Auto-generated method stub
+	/*	sp = getSharedPreferences("nainaiwang",MODE_PRIVATE);//getSharedPreferences("存储文件名字",存储格式)
+		id = sp.getString("id","null");*/
 
 	}
 

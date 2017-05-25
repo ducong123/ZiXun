@@ -59,11 +59,15 @@ public class UrlUtils {
     /**
      * 上传图片接口
      */
-    public static final String UPLOAD_IMG = "http://124.166.246.120:8000/nn2/user/ucenter/upload";
+    public static final String UPLOAD_IMG = "http://124.166.246.120:8000/nn2/user/ucenterApp/upload";
     /**
      * 图片验证码
      */
 /*    public static final String Img = "http://124.166.246.120:8000/nn2/user/app/getCaptcha";*/
+    /**
+     * 编辑接口
+     */
+    public static final String EDITDATE = "http://124.166.246.120:8000/nn2/user/ucenterApp/getInfo";
 
 
 }

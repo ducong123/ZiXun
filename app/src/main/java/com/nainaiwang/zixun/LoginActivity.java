@@ -152,12 +152,22 @@ public class LoginActivity extends Activity implements OnClickListener {
 					JSONObject jsonObject = new JSONObject(arg0);
 					String errorCode = jsonObject.getString("errorCode");
 					String info = jsonObject.getString("info");
+					String id =jsonObject.getString("id");
+					String head_pic = jsonObject.getString("head_pic");
+					String nick = jsonObject.getString("nick");
+					String birth = jsonObject.getString("birth");
+					String sign = jsonObject.getString("sign");
+
 					if ("0".equals(errorCode)) {
+						editor.putString("id",id);
+						editor.putString("head_pic",head_pic);
+						editor.putString("nick",nick);
+						editor.putString("birth",birth);
+						editor.putString("sign",sign);
 						editor.commit();
 						Toast.makeText(LoginActivity.this, info,
 								Toast.LENGTH_SHORT).show();
 						finish();
-
 					} else {
 						Toast.makeText(LoginActivity.this, info,
 								Toast.LENGTH_SHORT).show();
