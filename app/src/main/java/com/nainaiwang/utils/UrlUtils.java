@@ -63,11 +63,11 @@ public class UrlUtils {
     /**
      * 图片验证码
      */
-/*    public static final String Img = "http://124.166.246.120:8000/nn2/user/app/getCaptcha";*/
+    public static final String Img ="http://124.166.246.120:8000/nn2/user/login/getcaptcha" ;
     /**
      * 编辑接口
      */
-    public static final String EDITDATE = "http://124.166.246.120:8000/nn2/user/ucenterApp/getInfo";
+/*    public static final String EDITDATE = "http://124.166.246.120:8000/nn2/user/ucenterApp/getInfo";*/
 
 
 }

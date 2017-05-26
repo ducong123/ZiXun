@@ -17,12 +17,12 @@
        <!-- 注册-->
         <TextView
             android:id="@+id/myCenter"
-            android:layout_width="40dp"
+            android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
-            android:text="中心"
+            android:background="@mipmap/mycenter"
             android:textColor="@color/white"
             android:textSize="17dp"/>
 

@@ -11,11 +11,8 @@ import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
 import android.text.InputType;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CheckBox;
@@ -29,11 +26,11 @@ import android.widget.Toast;
 
 import com.nainaiwang.myreceiver.JudgeNetIsConnectedReceiver;
 import com.nainaiwang.utils.UrlUtils;
-import com.nainaiwang.utils.Utils;
 import com.nainaiwang.utils.Validator;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xutils.common.Callback;
 import org.xutils.common.Callback.CommonCallback;
 import org.xutils.http.RequestParams;
 
@@ -60,7 +57,6 @@ public class RegisterActivity extends Activity implements OnClickListener {
     private ProgressDialog progressDialog;// 进度框
     private JudgeNetIsConnectedReceiver receiver;// 广播接受者
 
-   private String path="http://124.166.246.120:8000/nn2/user/app/getCaptcha";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,27 +77,38 @@ public class RegisterActivity extends Activity implements OnClickListener {
 
     }
     /**
-     * 加载图片时的回调
+     * 加载图片验证码
      *
      */
-public  void getImgCade(){
-    new Utils().loadImage(path, new Utils.OnLoadImageListener()
-    {
-        @Override
-        public void onLoadImage(Bitmap bm, String imageUrl)
-        {
-            if (null == bm)
-            {
-                //imgcode.setImageResource(R.drawable.delete);//没有加载图时的默认图片
+    public void getImgCade(){
+      RequestParams imgParams = new RequestParams(UrlUtils.Img);
+        x.http().get(imgParams, new Callback.CommonCallback<byte[]>() {
+            @Override
+            public void onSuccess(byte[] result) {
+                if(result !=null){
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(result,0,result.length);
+                    imgcode.setImageBitmap(bitmap);
+                }
+               System.out.println("result"+result);
             }
-            else
-            {
-                imgcode.setImageBitmap(bm);
-            }
-        }
 
-    });
-}/*图形验证码 end*/
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
+/*图形验证码 end*/
     /**
      * 初始化控件
      */
@@ -288,24 +295,22 @@ public  void getImgCade(){
             @Override
             public void onSuccess(String arg0) {
                 // TODO Auto-generated method stub
+                System.out.println("注册接口返回值arg0"+arg0);
                 try {
                     JSONObject jsonObject = new JSONObject(arg0);
                     String success = jsonObject.getString("success");
                     String info = jsonObject.getString("info");
-
                     if ("0".equals(success)) {
                         Toast.makeText(RegisterActivity.this, info,
                                 Toast.LENGTH_SHORT).show();
                         progressDialog.dismiss();//关闭
                     } else {
                         progressDialog.dismiss();
-                        String token = jsonObject.getString("token");
                         Toast.makeText(RegisterActivity.this, "注册成功",
                                 Toast.LENGTH_SHORT).show();
                         editor.putString("mobile", str1);
                         editor.putString("username", str4);
                         editor.putString("password",str3);
-                        editor.putString("token", token);
                         editor.putString("agent",str5);
                         editor.putString("repassword",str6);
                         editor.commit();
@@ -371,7 +376,7 @@ public  void getImgCade(){
                     String info = jsonObject.getString("info");
 
                     if("1".equals(success)){
-                        Toast.makeText(RegisterActivity.this, info,
+                        Toast.makeText(RegisterActivity.this,"验证码已发送",
                                 Toast.LENGTH_SHORT).show();
                         getVerificationCodeTv.setBackgroundResource(R.drawable.reset);// 点击获取验证码后把背景换为灰色
                         getVerificationCodeTv.setText("60");// 把内容换为数字
