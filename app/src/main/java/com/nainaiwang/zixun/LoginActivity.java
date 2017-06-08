@@ -22,6 +22,7 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ImageView;
 
 /**
  *
@@ -55,6 +56,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 		super.onResume();
 		sp = getSharedPreferences("nainaiwang", MODE_PRIVATE);
 		editor = sp.edit();
+
 	}
 
 	private void initData() {
@@ -105,7 +107,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 				break;
 			case R.id.textview_login_freeresiger:
 				Intent regToRegister = new Intent(LoginActivity.this,
-						MainActivity.class);
+						RegisterActivity.class);
 				startActivity(regToRegister);// 跳转到注册页面
 				finish();// 退出当前页面
 				break;
@@ -150,14 +152,25 @@ public class LoginActivity extends Activity implements OnClickListener {
 					JSONObject jsonObject = new JSONObject(arg0);
 					String errorCode = jsonObject.getString("errorCode");
 					String info = jsonObject.getString("info");
+
 					if ("0".equals(errorCode)) {
+						String id =jsonObject.getString("id");
+						String head_pic = jsonObject.getString("head_pic");
+						String nick = jsonObject.getString("nick");
+						String birth = jsonObject.getString("birth");
+						String sign = jsonObject.getString("sign");
+						editor.putString("id",id);
+						editor.putString("head_pic",head_pic);
+						editor.putString("nick",nick);
+						editor.putString("birth",birth);
+						editor.putString("sign",sign);
+                       // editor.putBoolean("isLog",true);
 						editor.commit();
-						Toast.makeText(LoginActivity.this, "登录成功",
+						Toast.makeText(LoginActivity.this, info,
 								Toast.LENGTH_SHORT).show();
 						finish();
-
 					} else {
-						Toast.makeText(LoginActivity.this, info,
+						Toast.makeText(LoginActivity.this,info,
 								Toast.LENGTH_SHORT).show();
 					}
 				} catch (JSONException e) {
@@ -167,5 +180,6 @@ public class LoginActivity extends Activity implements OnClickListener {
 			}
 		});
 	}
+
 
 }

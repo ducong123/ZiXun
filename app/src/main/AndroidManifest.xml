@@ -27,9 +27,25 @@
 
         </activity>
         <!--增加登录功能 end-->
-        <!--判断登录功能 -->
-        <activity android:name=".MyCenterActivity"/>
-        <!--增加登录功能 end-->
+        <!--个人中心功能 -->
+        <activity android:name=".MyCenterActivity"> </activity>
+        <!--个人中心功能 end-->
+        <!--账户安全功能 -->
+        <activity android:name=".AccountSecurityActivity"> </activity>
+        <!--账户安全功能 end-->
+        <!--修改密码功能 -->
+        <activity android:name=".SetPasswordActivity"> </activity>
+        <!--修改密码功能 end-->
+        <!--修改资料功能 -->
+        <activity android:name=".SetDataActivity"> </activity>
+        <!--修改资料功能 end-->
+        <!--我的收藏 -->
+        <activity android:name=".MyCollectionActivity"> </activity>
+        <!--我的收藏 end-->
+        <!--文章评论 -->
+        <activity android:name=".CommentListActivity"> </activity>
+        <!--文章评论 end-->
+
         <activity android:name=".SearchActivity" />
 
         <meta-data

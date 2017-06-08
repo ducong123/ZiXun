@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/textview_dialog_edit_takephoto"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textSize="14sp"
+        android:text="拍照"
+        android:background="@android:color/white"
+        android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/textview_dialog_edit_selectphoto"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="1dp"
+        android:gravity="center"
+        android:background="@android:color/white"
+        android:text="从图库中选取"
+        android:textSize="14sp" />
+
+</LinearLayout>

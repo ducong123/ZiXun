@@ -1,16 +1,4 @@
-package com.nainaiwang.zixun;;
-
-import junit.framework.Test;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.xutils.x;
-import org.xutils.common.Callback.CommonCallback;
-import org.xutils.http.RequestParams;
-
-import com.nainaiwang.myreceiver.JudgeNetIsConnectedReceiver;
-import com.nainaiwang.utils.UrlUtils;
-import com.nainaiwang.utils.Validator;
+package com.nainaiwang.zixun;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -18,6 +6,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -29,22 +19,41 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nainaiwang.myreceiver.JudgeNetIsConnectedReceiver;
+import com.nainaiwang.utils.UrlUtils;
+import com.nainaiwang.utils.Validator;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.xutils.common.Callback;
+import org.xutils.common.Callback.CommonCallback;
+import org.xutils.http.RequestParams;
+
+import org.xutils.x;
+
+
 public class RegisterActivity extends Activity implements OnClickListener {
 
-    private TextView agreement, registerBtn, userName;// 《用户注册协议》，注册,获取验证码里面的字
-    private RelativeLayout back, seePassword;// 返回，获取验证码，可视密码
-    private EditText inputPhoneNum, inputUserName, inputPassword;// 输入手机号，输入验证码，输入密码
+    private TextView agreement, registerBtn, getVerificationCodeTv;// 《用户注册协议》，注册,获取验证码里面的字
+    private CheckBox iAgree;// 是否同意条款
+    private RelativeLayout back, getVerificationCode, seePassword;// 返回，获取验证码，可视密码
+    private EditText inputPhoneNum, inputVerification, inputPassword,inputUsername,rePassword,inputImgVer;// 输入手机号，输入验证码，输入密码
+    private ImageView imgcode;
 
     private boolean isSeePassword = false;// 点击眼睛，是否显示密码,默认不显示
-
+    private boolean isAgreeAgreement = true;
     private boolean isNet;// 是否有网络
 
+    private int reclen = 60;// 倒计时60秒
+    private Handler handler = new Handler();
     private SharedPreferences sp;
     private Editor editor;
+
     private ProgressDialog progressDialog;// 进度框
     private JudgeNetIsConnectedReceiver receiver;// 广播接受者
 
@@ -64,23 +73,69 @@ public class RegisterActivity extends Activity implements OnClickListener {
         super.onResume();
         sp = getSharedPreferences("nainaiwang", MODE_PRIVATE);
         editor = sp.edit();
-    }
+        getImgCade();
 
+    }
+    /**
+     * 加载图片验证码
+     *
+     */
+    public void getImgCade(){
+      RequestParams imgParams = new RequestParams(UrlUtils.Img);
+        x.http().get(imgParams, new Callback.CommonCallback<byte[]>() {
+            @Override
+            public void onSuccess(byte[] result) {
+                if(result !=null){
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(result,0,result.length);
+                    imgcode.setImageBitmap(bitmap);
+                }
+               System.out.println("result"+result);
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
+/*图形验证码 end*/
     /**
      * 初始化控件
      */
     private void initView() {
         // TODO Auto-generated method stub
-        back = (RelativeLayout) findViewById(R.id.relativelayout_register_back);//返回控件
-        seePassword = (RelativeLayout) findViewById(R.id.relativelayout_register_seepassword);//查看密码控件
-        registerBtn = (TextView) findViewById(R.id.textview_register_register);//注册按钮
+        back = (RelativeLayout) findViewById(R.id.relativelayout_register_back);
+        seePassword = (RelativeLayout) findViewById(R.id.relativelayout_register_seepassword);
+        getVerificationCode = (RelativeLayout) findViewById(R.id.relativelayout_register_getverification);
+        agreement = (TextView) findViewById(R.id.textview_register_agressment);
+        registerBtn = (TextView) findViewById(R.id.textview_register_register);
+        getVerificationCodeTv = (TextView) findViewById(R.id.textview_register_getverificationtv);
+        iAgree = (CheckBox) findViewById(R.id.checkbox_register_agressment);
+        inputPhoneNum = (EditText) findViewById(R.id.edittext_register_inputphone);
+        inputPassword = (EditText) findViewById(R.id.edittext_register_inputpassword);
+        inputVerification = (EditText) findViewById(R.id.edittext_register_verification);
+        inputUsername = (EditText)findViewById(R.id.edittext_register_inputUsername) ;
+        rePassword =(EditText)findViewById(R.id.edittext_register_inputrepassword);
+        imgcode =(ImageView)findViewById(R.id.imageview_edit_imgCode);//图形验证码显示
+        inputImgVer=(EditText)findViewById(R.id.edittext_img_code);//输入图形验证码
 
-        inputPhoneNum = (EditText) findViewById(R.id.edittext_register_inputphone);//手机号输入框
-        inputPassword = (EditText) findViewById(R.id.edittext_register_inputpassword);//密码输入框
-        inputUserName = (EditText) findViewById(R.id.edittext_register_inputUsername);//用户名输入框
-        back.setOnClickListener(this);//返回按钮的单击事件
-        registerBtn.setOnClickListener(this);//注册按钮的单击事件
-        seePassword.setOnClickListener(this);//查看密码的单击事件
+        back.setOnClickListener(this);
+        getVerificationCode.setOnClickListener(this);
+        agreement.setOnClickListener(this);
+        registerBtn.setOnClickListener(this);
+        seePassword.setOnClickListener(this);
+        imgcode.setOnClickListener(this);
+        imgcode.setOnClickListener(this);
     }
 
     /**
@@ -94,13 +149,15 @@ public class RegisterActivity extends Activity implements OnClickListener {
         intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(receiver, intentFilter);
 
-        /*iAgree.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+        iAgree.setOnCheckedChangeListener(new OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
                 // TODO Auto-generated method stub
                 isAgreeAgreement = arg1;
+
             }
-        });*/
+        });
+
     }
 
     @Override
@@ -111,37 +168,73 @@ public class RegisterActivity extends Activity implements OnClickListener {
             case R.id.relativelayout_register_back:
                 finish();
                 break;
+            case R.id.relativelayout_register_getverification:
+                String phoneNum = inputPhoneNum.getText().toString().trim();
+                String st2 = inputImgVer.getText().toString().trim();//获取图形验证码的值
+                isNet = receiver.judgeNetIsConnected(RegisterActivity.this);
+              if(!Validator.isMobile(phoneNum)){
+                    Toast.makeText(RegisterActivity.this, "手机号码不正确，请重新输入",
+                            Toast.LENGTH_SHORT).show();
+                }else if(TextUtils.isEmpty(st2)){
+                Toast.makeText(RegisterActivity.this, "验证码不能是空的",
+                        Toast.LENGTH_SHORT).show();
+                }else {
+                  if (isNet) {
+                      getverification(phoneNum,st2);// 获取验证码
+                  } else {
+                      Toast.makeText(RegisterActivity.this, "当前没有网络",
+                              Toast.LENGTH_SHORT).show();
+                  }
+              }
+                break;
             case R.id.textview_register_register:
                 isNet = receiver.judgeNetIsConnected(RegisterActivity.this);
                 String phoneNum2 = inputPhoneNum.getText().toString().trim();
-                String userName = inputUserName.getText().toString()
+                String verificationCode = inputVerification.getText().toString()
                         .trim();
                 String password = inputPassword.getText().toString().trim();
-                if (TextUtils.isEmpty(phoneNum2)) {
-                    Toast.makeText(RegisterActivity.this, "手机号码不能为空",
-                            Toast.LENGTH_SHORT).show();
-                } else if(!Validator.isMobile(phoneNum2)){
-                    Toast.makeText(RegisterActivity.this, "请输入正确的手机号",
-                            Toast.LENGTH_SHORT).show();
-                }else if (TextUtils.isEmpty(userName)) {
+                String username = inputUsername.getText().toString().trim();
+                String repassword = rePassword.getText().toString().trim();
+                String agent= null;
+                if(isAgreeAgreement){
+                    agent="1";
+                }else {
+                    agent="0";
+                }
+                if (TextUtils.isEmpty(username)) {
                     Toast.makeText(RegisterActivity.this, "用户名不能为空",
                             Toast.LENGTH_SHORT).show();
-                }else if (TextUtils.isEmpty(password)) {
+                }else if (TextUtils.isEmpty(phoneNum2)) {
+                    Toast.makeText(RegisterActivity.this, "手机号码不能为空",
+                            Toast.LENGTH_SHORT).show();
+                } else if (TextUtils.isEmpty(verificationCode)) {
+                    Toast.makeText(RegisterActivity.this, "验证码不能为空",
+                            Toast.LENGTH_SHORT).show();
+                } else if (TextUtils.isEmpty(password)) {
                     Toast.makeText(RegisterActivity.this, "密码不能为空",
+                            Toast.LENGTH_SHORT).show();
+                } else if(!repassword.equals(password)){
+                    Toast.makeText(RegisterActivity.this, "密码不一致",
+                            Toast.LENGTH_SHORT).show();
+                }else if (!isAgreeAgreement) {
+                    Toast.makeText(RegisterActivity.this, "请同意《用户注册协议》",
                             Toast.LENGTH_SHORT).show();
                 } else {
                     if (isNet) {
-                        register(phoneNum2, userName, password);// 注册
-                        /*Intent loginToForgetpassword = new Intent(RegisterActivity.this,
-                                LoginActivity.class);
-                        startActivity(loginToForgetpassword);*/
+                        register(phoneNum2, verificationCode, password,username,agent,repassword);// 注册
                     } else {
                         Toast.makeText(RegisterActivity.this, "当前没有网络",
                                 Toast.LENGTH_SHORT).show();
                     }
                 }
-
                 break;
+            case R.id.textview_register_agressment:
+                Intent registerToTest = new Intent(RegisterActivity.this,
+                        LoginActivity.class);
+                registerToTest.putExtra("name", "用户注册协议");
+                registerToTest.putExtra("activity", "register");
+                startActivity(registerToTest);
+                // 查看输入的密码
             case R.id.relativelayout_register_seepassword:
                 if (isSeePassword) {
                     // 如果当前密码显示，就把密码设置为文本不可见
@@ -155,26 +248,32 @@ public class RegisterActivity extends Activity implements OnClickListener {
                     isSeePassword = true;
                 }
                 break;
+            case  R.id.imageview_edit_imgCode:
+                            getImgCade();
+                break;
 
             default:
                 break;
         }
     }
 
+
+
     /**
      * 注册
      */
-    private void register(final String str1, String str2, String str3) {
+    private void register(final String str1, String str2, final String str3, final String str4,final String str5,final String str6) {
         // TODO Auto-generated method stub
-        progressDialog = new ProgressDialog(RegisterActivity.this);//创建加载图片对象
-        progressDialog.setMessage("正在加载，请稍候...");//加载
-
+        progressDialog = new ProgressDialog(RegisterActivity.this);
+        progressDialog.setMessage("正在加载，请稍候...");
         progressDialog.show();
         RequestParams registerParams = new RequestParams(UrlUtils.Reg);
-        registerParams.addBodyParameter("phoneNum2", str1);
-        registerParams.addBodyParameter("userName", str2);
+        registerParams.addBodyParameter("mobile", str1);
+        registerParams.addBodyParameter("validPhoneCode", str2);
         registerParams.addBodyParameter("password", str3);
-
+        registerParams.addBodyParameter("username", str4);
+        registerParams.addBodyParameter("agent", str5);
+        registerParams.addBodyParameter("repassword", str6);
         x.http().post(registerParams, new CommonCallback<String>() {
             @Override
             public void onCancelled(CancelledException arg0) {
@@ -182,6 +281,7 @@ public class RegisterActivity extends Activity implements OnClickListener {
                 Toast.makeText(RegisterActivity.this, "取消注册",
                         Toast.LENGTH_SHORT).show();
             }
+
             @Override
             public void onError(Throwable arg0, boolean arg1) {
                 // TODO Auto-generated method stub
@@ -195,28 +295,25 @@ public class RegisterActivity extends Activity implements OnClickListener {
             @Override
             public void onSuccess(String arg0) {
                 // TODO Auto-generated method stub
+                System.out.println("注册接口返回值arg0"+arg0);
                 try {
                     JSONObject jsonObject = new JSONObject(arg0);
-                    String code = jsonObject.getString("code");
+                    String success = jsonObject.getString("success");
                     String info = jsonObject.getString("info");
-                    if ("0".equals(code)) {
+                    if ("0".equals(success)) {
                         Toast.makeText(RegisterActivity.this, info,
                                 Toast.LENGTH_SHORT).show();
-                        progressDialog.dismiss();//关闭加载
+                        progressDialog.dismiss();//关闭
                     } else {
                         progressDialog.dismiss();
-                        String token = jsonObject.getString("token");//token数据用户唯一标识符
-                        /**
-                         *Toast.makeText( )用来显示信息*/
-
                         Toast.makeText(RegisterActivity.this, "注册成功",
                                 Toast.LENGTH_SHORT).show();
-                        editor.putBoolean("isLogin", true);//
-                        editor.putString("phone", str1);
-                        editor.putString("userName", str1);
-                        editor.putString("token", token);
+                        editor.putString("mobile", str1);
+                        editor.putString("username", str4);
+                        editor.putString("password",str3);
+                        editor.putString("agent",str5);
+                        editor.putString("repassword",str6);
                         editor.commit();
-
                         finish();
                     }
                 } catch (JSONException e) {
@@ -239,4 +336,88 @@ public class RegisterActivity extends Activity implements OnClickListener {
             unregisterReceiver(receiver);
         }
     }
+    /**
+     * 获取验证码
+     */
+    private void getverification(final String str, final String str2) {
+        // TODO Auto-generated method stub
+
+        RequestParams getVerificationParams = new RequestParams(
+                UrlUtils.GET_VERIFICATION_CODE);
+        //getVerificationParams.addHeader("Cookie", "JSESSIONID=" + ZiXunApplication.myCookieValue);
+        //getVerificationParams.addHeader("Content-Type", "application/json;charset=UTF-8");
+        //getVerificationParams.setUseCookie(true);
+        getVerificationParams.addBodyParameter("phone", str);
+        getVerificationParams.addBodyParameter("captcha", str2);
+
+        x.http().post(getVerificationParams, new CommonCallback<String>() {
+            @Override
+            public void onCancelled(CancelledException arg0) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void onError(Throwable arg0, boolean arg1) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void onFinished() {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void onSuccess(String arg0) {
+                // TODO Auto-generated method stub
+                try {
+                    System.out.println("获取验证码：" + arg0);
+                    JSONObject jsonObject = new JSONObject(arg0);
+                    String success = jsonObject.getString("success");
+                    String info = jsonObject.getString("info");
+
+                    if("1".equals(success)){
+                        Toast.makeText(RegisterActivity.this,"验证码已发送",
+                                Toast.LENGTH_SHORT).show();
+                        getVerificationCodeTv.setBackgroundResource(R.drawable.reset);// 点击获取验证码后把背景换为灰色
+                        getVerificationCodeTv.setText("60");// 把内容换为数字
+                        getVerificationCode.setEnabled(false);// 设置当前获取验证码按钮为不可点击
+                        handler.postDelayed(runnable, 1000);// 每过一秒
+                        editor.putBoolean("isLogin", true);//
+                        editor.putString("phone", str);
+                        editor.putString("captcha", str2);
+                        editor.commit();
+                    }else {
+                        Toast.makeText(RegisterActivity.this,info,
+                                Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    /**
+     * 倒计时
+     */
+    Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            // TODO Auto-generated method stub
+            reclen--;
+            getVerificationCodeTv.setText("" + reclen);
+            if (reclen == 0) {
+                // 当倒计时到0以后，把背景换为黄色，设置当前按钮可点击，设置字为“获取验证码”,把倒计时重新设置为60
+                getVerificationCodeTv
+                        .setBackgroundResource(R.drawable.loginbackgroundpic);
+                getVerificationCodeTv.setText("获取验证码");
+                getVerificationCode.setEnabled(true);
+                reclen = 60;
+            } else {
+                handler.postDelayed(this, 1000);// 每过一秒减一
+            }
+        }
+    };
+
 }

@@ -9,16 +9,6 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context="com.nainaiwang.zixun.MainActivity">
-    <TextView
-        android:id="@+id/myCenter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:background="@mipmap/loginbackgroundpic"
-        android:gravity="center"
-        android:text="中心"
-        android:textColor="@android:color/white"
-        android:textSize="19sp" />
 
     <RelativeLayout
         android:id="@+id/relativelayout_main_top"
@@ -26,13 +16,13 @@
         android:layout_height="44dp">
        <!-- 注册-->
         <TextView
-            android:id="@+id/textview_main_register"
-            android:layout_width="40dp"
+            android:id="@+id/myCenter"
+            android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
-            android:text="@string/register"
+            android:background="@mipmap/mycenter"
             android:textColor="@color/white"
             android:textSize="17dp"/>
 
