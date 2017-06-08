@@ -7,22 +7,22 @@ public class UrlUtils {
     /**
      * 首页频道接口
      */
-    public static final String HOMEPAGE = "http://info.nainaiwang.com/app/category/cateList";
+    public static final String HOMEPAGE = "http://124.166.246.120:8000/nnzx/app/category/cateList";
 
     /**
      * 首页推荐页面接口
      */
-    public static final String TUIJIAN = "http://info.nainaiwang.com/app/article/arclist";
+    public static final String TUIJIAN = "http://124.166.246.120:8000/nnzx/app/article/arclist";
 
     /**
      * 文章详情接口
      */
-    public static final String DETAILS = "http://info.nainaiwang.com/app/article/arcInfo/id/";
+    public static final String DETAILS = "http://124.166.246.120:8000/nnzx/app/article/arcInfo/id/";
 
     /**
      * 广告页接口
      */
-    public static final String AD = "http://info.nainaiwang.com/app/article/ad";
+    public static final String AD = "http://124.166.246.120:8000/nnzx/app/article/ad";
 
     /**
      * 注册接口
@@ -64,10 +64,26 @@ public class UrlUtils {
      * 图片验证码
      */
     public static final String Img ="http://124.166.246.120:8000/nn2/user/login/getcaptcha" ;
-    /**
-     * 编辑接口
-     */
-/*    public static final String EDITDATE = "http://124.166.246.120:8000/nn2/user/ucenterApp/getInfo";*/
+   /* *//**
+     *个人资料 编辑接口
+     *//*
+    public static final String EDITDATE = "http://124.166.246.120:8000/nn2/user/ucenterApp/getInfo";*/
+     /*
+     * 文章收藏接口
+     * */
+     public static  final  String COLLECTION ="http://124.166.246.120:8000/nnzx/app/ucenter/addFavorite";
+    /*
+     * 文章取消收藏接口
+     * */
+    public static  final  String NOCOLLECTION ="http://124.166.246.120:8000/nnzx/app/ucenter/cancleFavorite";
+    /*
+    * 文章收藏列表接口
+    * */
+    public static  final  String COLLECTIONLIST="http://124.166.246.120:8000/nnzx/app/ucenter/favoriteList";
+    /*
+    * 文章收藏列表接口
+    * */
+    public static  final  String COMMENTlIST="http://124.166.246.120:8000/nnzx/app/ucenter/addComment";
 
 
 }

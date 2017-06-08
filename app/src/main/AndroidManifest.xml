@@ -39,6 +39,13 @@
         <!--修改资料功能 -->
         <activity android:name=".SetDataActivity"> </activity>
         <!--修改资料功能 end-->
+        <!--我的收藏 -->
+        <activity android:name=".MyCollectionActivity"> </activity>
+        <!--我的收藏 end-->
+        <!--文章评论 -->
+        <activity android:name=".CommentListActivity"> </activity>
+        <!--文章评论 end-->
+
         <activity android:name=".SearchActivity" />
 
         <meta-data

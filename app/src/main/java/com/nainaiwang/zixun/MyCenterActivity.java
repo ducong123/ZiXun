@@ -28,7 +28,7 @@ import org.xutils.x;
  */
 public class MyCenterActivity extends Activity implements OnClickListener {
 
-    private RelativeLayout back;//返回按钮
+    private RelativeLayout back,myCollBtn;//返回按钮
 	private TextView exitLogBtn,accountSecurityBtn;//退出登录按钮，跳转账号安全按钮
 	private SharedPreferences sp; //存储对象
 	private ProgressDialog progressDialog;// 进度框
@@ -54,8 +54,6 @@ public class MyCenterActivity extends Activity implements OnClickListener {
 
 	private void initData() {
 		// TODO Auto-generated method stub
-	/*	sp = getSharedPreferences("nainaiwang",MODE_PRIVATE);//getSharedPreferences("存储文件名字",存储格式)
-		id = sp.getString("id","null");*/
 
 	}
 
@@ -64,10 +62,12 @@ public class MyCenterActivity extends Activity implements OnClickListener {
         back = (RelativeLayout)findViewById(R.id.relativelayout_edit_back);
 		exitLogBtn = (TextView)findViewById(R.id.exitLog);//调用退出登录按钮
 		accountSecurityBtn = (TextView)findViewById(R.id.txtview_account_security);//跳转到账户安全界面按钮
+        myCollBtn = (RelativeLayout)findViewById(R.id.relativelayout_myshancheng_myguanzhu);
 
         back.setOnClickListener(this);
 		exitLogBtn.setOnClickListener(this);
 		accountSecurityBtn.setOnClickListener(this);
+        myCollBtn.setOnClickListener(this);
 	}
 	@Override
 	public void onClick(View v) {
@@ -86,6 +86,11 @@ public class MyCenterActivity extends Activity implements OnClickListener {
 						AccountSecurityActivity.class);
 				startActivity(accountSecTO);//跳转账户安全界面
 				break;
+            case R.id.relativelayout_myshancheng_myguanzhu:
+                Intent myCollList= new Intent(MyCenterActivity.this,
+                        MyCollectionActivity.class);
+                startActivity(myCollList);//跳转账户安全界面
+                break;
 			default:
 				break;
 		}
@@ -95,7 +100,6 @@ public class MyCenterActivity extends Activity implements OnClickListener {
 		// TODO Auto-generated method stub
 
 		RequestParams loginParams = new RequestParams(UrlUtils.CHECKLOG);
-		System.out.println("ddl");
 		x.http().post(loginParams, new CommonCallback<String>() {
 
 			@Override
@@ -132,12 +136,6 @@ public class MyCenterActivity extends Activity implements OnClickListener {
 								LoginActivity.class);
 						startActivity(loginTo);
 					}
-					/*if ("0".equals(log)) {
-						System.out.println("ddl");
-
-
-
-					}*/
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

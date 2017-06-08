@@ -164,6 +164,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 						editor.putString("nick",nick);
 						editor.putString("birth",birth);
 						editor.putString("sign",sign);
+                       // editor.putBoolean("isLog",true);
 						editor.commit();
 						Toast.makeText(LoginActivity.this, info,
 								Toast.LENGTH_SHORT).show();

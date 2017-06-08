@@ -75,12 +75,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private AlertDialog netDialog;//网络对话框
 
     private DbManager db;//数据库管理器
-    private boolean isLogin;
 
     @Override
     public  void onResume(){
         super.onResume();
-        isLogin= true;
+
     }
 
 //    private BroadcastReceiver connectionReceiver = new BroadcastReceiver() {
@@ -186,6 +185,7 @@ private SharedPreferences.Editor editor;
         x.http().post(jsonParams, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String s) {
+               // System.out.println(s);
               /*  DbCookieStore instance = DbCookieStore.INSTANCE;
                 List<HttpCookie> cookies = instance.getCookies();
                 for(HttpCookie cookie:cookies){

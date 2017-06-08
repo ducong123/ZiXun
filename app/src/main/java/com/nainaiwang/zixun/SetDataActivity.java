@@ -79,6 +79,7 @@ public class SetDataActivity extends Activity implements OnClickListener {
 	private static final int CAMERA_REQUEST_CODE = 1;// 拍照选图片的返回码
 	private static final int RESIZE_REQUEST_CODE = 2;// 裁剪返回码
 
+	@RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -102,7 +103,7 @@ public class SetDataActivity extends Activity implements OnClickListener {
 		IntentFilter intentFilter = new IntentFilter();
 		intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
 		registerReceiver(receiver, intentFilter);
-        id = sp.getString("id",null);
+       // id = sp.getString("id",null);
 		//Intent getIntent = getIntent();
 		String nick = sp.getString("nick","null");
 		String  birth = sp.getString("birth","null");
